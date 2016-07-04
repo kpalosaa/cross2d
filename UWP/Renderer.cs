@@ -3,7 +3,7 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 
 namespace Uni2D
 {
-	public abstract class Renderer<TView> : Xamarin.Forms.Platform.UWP.ViewRenderer<TView, CanvasControl> where TView : Xamarin.Forms.View, IRenderer
+	public abstract class Renderer<TView> : Xamarin.Forms.Platform.UWP.ViewRenderer<TView, CanvasControl> where TView : Xamarin.Forms.View
 	{
 		protected override void OnElementChanged(Xamarin.Forms.Platform.UWP.ElementChangedEventArgs<TView> e)
 		{
