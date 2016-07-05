@@ -29,6 +29,9 @@ namespace Uni2D
 		{
 			Context context = new Context(e.Canvas, e.Paint, e.Rect);
 
+			context.Width = Control.Width;
+			context.Height = Control.Height;
+
 			Draw(context);
 		}
 

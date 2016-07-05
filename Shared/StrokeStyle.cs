@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Uni2D
 {
+	public enum StrokeStyle
+	{
+		Fill,
+		Stroke,
+		StrokeAndFill
+	}
+
 	public enum CapStyle
 	{
 		Flat,

@@ -39,20 +39,28 @@ namespace Uni2D
 			set { paint.StrokeWidth = value; }
 		}
 
-		public CapStyle StrokeCapStyle
+		public StrokeStyle StrokeStyle
 		{
-			get
-			{
-				return capStyles[paint.StrokeCap];
-			}
-			set
-			{
-				paint.StrokeCap = capStyles[value];
-			}
+			get { return strokeStyles[paint.GetStyle()]; }
+			set { paint.SetStyle(strokeStyles[value]); }
 		}
 
+		public CapStyle StrokeCapStyle
+		{
+			get	{ return capStyles[paint.StrokeCap]; }
+			set { paint.StrokeCap = capStyles[value]; }
+		}
+
+		public float Width { get; internal set; }
+		public float Height { get; internal set; }
 
 
+		private static readonly BiDictionary<StrokeStyle, Paint.Style> strokeStyles = new BiDictionary<StrokeStyle, Paint.Style>()
+		{
+			[StrokeStyle.Fill] = Paint.Style.Fill,
+			[StrokeStyle.Stroke] = Paint.Style.Stroke,
+			[StrokeStyle.StrokeAndFill] = Paint.Style.FillAndStroke
+		};
 
 		private static readonly BiDictionary<CapStyle, Paint.Cap> capStyles = new BiDictionary<CapStyle, Paint.Cap>()
 		{

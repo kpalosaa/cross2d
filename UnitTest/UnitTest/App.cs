@@ -16,7 +16,8 @@ namespace Uni2D.UnitTest
 			{
 				Content = new StackLayout
 				{
-					VerticalOptions = LayoutOptions.Center,
+					HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
+					VerticalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
 					Children =
 					{
 						new Label

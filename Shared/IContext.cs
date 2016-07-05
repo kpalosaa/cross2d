@@ -11,6 +11,10 @@ namespace Uni2D
 
 		Color Color { get; set; }
 		float StrokeWidth { get; set; }
+		StrokeStyle StrokeStyle { get; set; }
 		CapStyle StrokeCapStyle { get; set; }
+
+		float Width { get; }
+		float Height { get; }
 	}
 }
