@@ -23,6 +23,9 @@ namespace Uni2D.UnitTest
 
 		protected override void Draw(IContext context)
 		{
+			context.Color = Color.Accent;
+			context.Clear();
+
 			context.Color = Color.Green;
 			context.StrokeWidth = 15;
 			context.StrokeCapStyle = CapStyle.Round;
@@ -38,6 +41,13 @@ namespace Uni2D.UnitTest
 			context.DrawLine(50, 600, 200, 800);
 			context.StrokeCapStyle = CapStyle.Square;
 			context.DrawLine(50, 650, 200, 850);
+
+			context.SetFont("monospace", 50);
+			context.DrawText("Courier New 50", 250, 550);
+			context.SetFont(50);
+			context.DrawText("Default 50", 250, 650);
+			context.SetFont(NamedSize.Large);
+			context.DrawText("Default Large", 250, 750);
 		}
 	}
 }

@@ -65,6 +65,24 @@ namespace Uni2D
 
 		public void SetFont(string name, int size, FontStyle style)
 		{
+			paintFill.SetTypeface(Typeface.Create(name, GetFontStyle(style)));
+			paintFill.TextSize = size;
+		}
+
+		public void SetFont(int size, FontStyle style = 0)
+		{
+			paintFill.SetTypeface(Typeface.DefaultFromStyle(GetFontStyle(style)));
+			paintFill.TextSize = size;
+		}
+
+		public void SetFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		{
+			paintFill.SetTypeface(Typeface.DefaultFromStyle(GetFontStyle(style)));
+			paintFill.TextSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
+		}
+
+		private TypefaceStyle GetFontStyle(FontStyle style)
+		{
 			TypefaceStyle typefaceStyle = TypefaceStyle.Normal;
 
 			if ((style & (FontStyle.Bold | FontStyle.Italic)) != 0)
@@ -74,24 +92,23 @@ namespace Uni2D
 			else if ((style & FontStyle.Italic) != 0)
 				typefaceStyle = TypefaceStyle.Italic;
 
-			paintStroke.SetTypeface(Typeface.Create(name, typefaceStyle));
-			paintStroke.TextSize = size;
+			return typefaceStyle;
 		}
 
 		public Xamarin.Forms.Size MeasureText(string text)
 		{
-			return new Xamarin.Forms.Size(paintStroke.MeasureText(text), paintStroke.FontSpacing);
+			return new Xamarin.Forms.Size(paintFill.MeasureText(text), paintFill.FontSpacing);
 		}
 
 		public void DrawText(string text, float x, float y)
 		{
-			canvas.DrawText(text, x, y, paintStroke);
+			canvas.DrawText(text, x, y - paintFill.GetFontMetrics().Ascent, paintFill);
 		}
 
 		public void DrawText(string text, float x, float y, float width, float height, Xamarin.Forms.TextAlignment hAlignment, Xamarin.Forms.TextAlignment vAlignment)
 		{
-			float textWidth = paintStroke.MeasureText(text);
-			float textHeight = paintStroke.FontSpacing;
+			float textWidth = paintFill.MeasureText(text);
+			float textHeight = paintFill.FontSpacing;
 
 			if ((hAlignment & Xamarin.Forms.TextAlignment.Center) != 0)
 				x += (width - textWidth) / 2;
@@ -103,7 +120,7 @@ namespace Uni2D
 			else if ((vAlignment & Xamarin.Forms.TextAlignment.End) != 0)
 				y += height - textHeight;
 
-			canvas.DrawText(text, x, y, paintStroke);
+			canvas.DrawText(text, x, y - paintFill.GetFontMetrics().Ascent, paintFill);
 		}
 
 		public Xamarin.Forms.Color Color

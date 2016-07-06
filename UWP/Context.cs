@@ -18,11 +18,14 @@ namespace Uni2D
 		private Color color;
 		private float strokeWidth = 1;
 		private CanvasTextFormat textFormat = new CanvasTextFormat();
+		private string defaultFontFamily;
 
 		internal Context(CanvasControl canvas, CanvasDrawingSession ds)
 		{
 			this.canvas = canvas;
 			this.ds = ds;
+
+			defaultFontFamily = textFormat.FontFamily;
 		}
 
 		public void Clear()
@@ -67,16 +70,39 @@ namespace Uni2D
 
 		public void SetFont(string name, int size, FontStyle style)
 		{
-			Windows.UI.Text.FontStyle fontStyle = 0;
-
-			if ((style & FontStyle.Bold) != 0)
-				textFormat.FontWeight = Windows.UI.Text.FontWeights.Bold;
-			if ((style & FontStyle.Italic) != 0)
-				fontStyle |= Windows.UI.Text.FontStyle.Italic;
+			SetFontStyle(style);
 
 			textFormat.FontFamily = name;
 			textFormat.FontSize = size;
-			textFormat.FontStyle = fontStyle;
+		}
+
+		public void SetFont(int size, FontStyle style = 0)
+		{
+			SetFontStyle(style);
+
+			textFormat.FontFamily = defaultFontFamily;
+			textFormat.FontSize = size;
+		}
+
+		public void SetFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		{
+			SetFontStyle(style);
+
+			textFormat.FontFamily = defaultFontFamily;
+			textFormat.FontSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
+		}
+
+		private void SetFontStyle(FontStyle style)
+		{
+			if ((style & FontStyle.Bold) != 0)
+				textFormat.FontWeight = Windows.UI.Text.FontWeights.Bold;
+			else
+				textFormat.FontWeight = Windows.UI.Text.FontWeights.Normal;
+
+			if ((style & FontStyle.Italic) != 0)
+				textFormat.FontStyle |= Windows.UI.Text.FontStyle.Italic;
+			else
+				textFormat.FontStyle = 0;
 		}
 
 		public Xamarin.Forms.Size MeasureText(string text)

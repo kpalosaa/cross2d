@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
-using System.Text;
 
 using Xamarin.Forms;
 
@@ -9,9 +9,21 @@ namespace Uni2D.UnitTest
 {
 	public class App : Application
 	{
-		public App ()
+		private Xamarin.Forms.View currentTestCase = null;
+
+		public App()
 		{
-			// The root page of your application
+			Picker selectTestCase = new Picker()
+			{
+				HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
+			};
+
+			Grid testCase = new Grid()
+			{
+				HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
+				VerticalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true }
+			};
+
 			MainPage = new ContentPage
 			{
 				Content = new StackLayout
@@ -20,33 +32,78 @@ namespace Uni2D.UnitTest
 					VerticalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
 					Children =
 					{
-						new Label
+						selectTestCase,
+						testCase
+					}
+				}
+			};
+
+			List<Type> tests = typeof(App).GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().IsDefined(typeof(UnitTestAttribute), false)).ToList();
+			tests.Sort((t1, t2) =>
+			{
+				UnitTestAttribute[] a1s = t1.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
+				UnitTestAttribute[] a2s = t2.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
+				if (a1s.Length > 0 && a2s.Length > 0)
+				{
+					UnitTestAttribute a1 = a1s[0] as UnitTestAttribute;
+					UnitTestAttribute a2 = a2s[0] as UnitTestAttribute;
+					return String.Compare(a1.Name != null ? a1.Name : t1.Name, a2.Name != null ? a2.Name : t2.Name, StringComparison.OrdinalIgnoreCase);
+				}
+
+				return 0;
+			});
+
+			Dictionary<string, Xamarin.Forms.View> testCaseMap = new Dictionary<string, Xamarin.Forms.View>();
+
+			foreach (Type type in tests)
+			{
+				UnitTestAttribute[] attribs = type.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
+				if (attribs.Length > 0)
+				{
+					UnitTestAttribute attrib = attribs[0] as UnitTestAttribute;
+					if (attrib != null)
+					{
+						Xamarin.Forms.View test = Activator.CreateInstance(type) as Xamarin.Forms.View;
+						if (test != null)
 						{
-							HorizontalTextAlignment = TextAlignment.Center,
-							Text = "Welcome to Xamarin Forms!"
-						},
-						new TestView
-						{
-							WidthRequest = 200, HeightRequest = 200,
-							HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
-							VerticalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true }
+							test.IsVisible = false;
+
+							string name = attrib.Name != null ? attrib.Name : type.Name;
+
+							testCaseMap[name] = test;
+
+							selectTestCase.Items.Add(name);
+
+							testCase.Children.Add(test);
 						}
 					}
+				}
+			}
+
+			selectTestCase.SelectedIndexChanged += (sender, args) =>
+			{
+				if (selectTestCase.SelectedIndex >= 0)
+				{
+					if (currentTestCase != null)
+						currentTestCase.IsVisible = false;
+
+					currentTestCase = testCaseMap[selectTestCase.Items[selectTestCase.SelectedIndex]];
+					currentTestCase.IsVisible = true;
 				}
 			};
 		}
 
-		protected override void OnStart ()
+		protected override void OnStart()
 		{
 			// Handle when your app starts
 		}
 
-		protected override void OnSleep ()
+		protected override void OnSleep()
 		{
 			// Handle when your app sleeps
 		}
 
-		protected override void OnResume ()
+		protected override void OnResume()
 		{
 			// Handle when your app resumes
 		}

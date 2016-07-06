@@ -10,6 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestCases\Circles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestCases\Lines.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestAttribute.cs" />
   </ItemGroup>
 </Project>
