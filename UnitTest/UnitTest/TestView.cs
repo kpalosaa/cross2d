@@ -24,13 +24,20 @@ namespace Uni2D.UnitTest
 		protected override void Draw(IContext context)
 		{
 			context.Color = Color.Green;
-			context.StrokeStyle = StrokeStyle.Stroke;
-			context.StrokeWidth = 5;
+			context.StrokeWidth = 15;
 			context.StrokeCapStyle = CapStyle.Round;
 
-			context.DrawCircle(context.Width / 2, context.Height / 2, Math.Min(context.Width / 2, context.Height / 2));
+			context.DrawRect(50, 50, 200, 200);
+			context.FillRect(300, 50, 200, 200);
 
-			context.DrawLine(0, context.Height - 10, context.Width, context.Height - 10);
+			context.DrawCircle(150, 400, 100);
+			context.FillCircle(400, 400, 100);
+
+			context.DrawLine(50, 550, 200, 750);
+			context.StrokeCapStyle = CapStyle.Flat;
+			context.DrawLine(50, 600, 200, 800);
+			context.StrokeCapStyle = CapStyle.Square;
+			context.DrawLine(50, 650, 200, 850);
 		}
 	}
 }

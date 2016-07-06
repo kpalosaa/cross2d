@@ -8,12 +8,15 @@ namespace Uni2D
 		void Clear();
 
 		void DrawRect(float x, float y, float width, float height);
+		void FillRect(float x, float y, float width, float height);
 
 		void DrawLine(float x1, float y1, float x2, float y2);
 
 		void DrawCircle(float xCenter, float yCenter, float radius);
+		void FillCircle(float xCenter, float yCenter, float radius);
 
 		void DrawEllipse(float xCenter, float yCenter, float hRadius, float vRadius);
+		void FillEllipse(float xCenter, float yCenter, float hRadius, float vRadius);
 
 		void SetFont(string name, int size, FontStyle style);
 
@@ -25,7 +28,6 @@ namespace Uni2D
 		Color Color { get; set; }
 
 		float StrokeWidth { get; set; }
-		StrokeStyle StrokeStyle { get; set; }
 		CapStyle StrokeCapStyle { get; set; }
 		JoinStyle StrokeJoinStyle { get; set; }
 

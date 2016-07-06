@@ -27,10 +27,7 @@ namespace Uni2D
 
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
-			Context context = new Context(e.Canvas, e.Paint, e.Rect);
-
-			context.Width = Control.Width;
-			context.Height = Control.Height;
+			Context context = new Context(e.Canvas, e.Rect);
 
 			Draw(context);
 		}

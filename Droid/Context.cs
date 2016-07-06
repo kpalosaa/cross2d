@@ -7,39 +7,60 @@ namespace Uni2D
 	public sealed class Context : IContext
 	{
 		private Canvas canvas;
-		private Paint paint;
+		private Paint paintStroke;
+		private Paint paintFill;
 		private Rect rect;
 
-		internal Context(Canvas canvas, Paint paint, Rect rect)
+		internal Context(Canvas canvas, Rect rect)
 		{
 			this.canvas = canvas;
-			this.paint = paint;
 			this.rect = rect;
+
+			paintStroke = new Paint();
+			paintStroke.SetStyle(Paint.Style.Stroke);
+
+			paintFill = new Paint();
+			paintFill.SetStyle(Paint.Style.Fill);
 		}
 
 		public void Clear()
 		{
-			canvas.DrawPaint(paint);
+			canvas.DrawPaint(paintFill);
 		}
 
 		public void DrawRect(float x, float y, float width, float height)
 		{
-			canvas.DrawRect(x, y, x + width - 1, y + height - 1, paint);
+			canvas.DrawRect(x, y, x + width - 1, y + height - 1, paintStroke);
+		}
+
+		public void FillRect(float x, float y, float width, float height)
+		{
+			canvas.DrawRect(x, y, x + width - 1, y + height - 1, paintFill);
 		}
 
 		public void DrawLine(float x1, float y1, float x2, float y2)
 		{
-			canvas.DrawLine(x1, y1, x2, y2, paint);
+			canvas.DrawLine(x1, y1, x2, y2, paintStroke);
 		}
 
 		public void DrawCircle(float xCenter, float yCenter, float radius)
 		{
-			canvas.DrawCircle(xCenter, yCenter, radius, paint);
+			canvas.DrawCircle(xCenter, yCenter, radius, paintStroke);
+		}
+
+		public void FillCircle(float xCenter, float yCenter, float radius)
+		{
+			canvas.DrawCircle(xCenter, yCenter, radius, paintFill);
 		}
 
 		public void DrawEllipse(float xCenter, float yCenter, float hRadius, float vRadius)
 		{
-			canvas.DrawOval(xCenter - hRadius, yCenter - vRadius, xCenter + hRadius, yCenter + vRadius, paint);
+			canvas.DrawOval(xCenter - hRadius, yCenter - vRadius, xCenter + hRadius, yCenter + vRadius, paintStroke);
+		}
+
+		public void FillEllipse(float xCenter, float yCenter, float hRadius, float vRadius)
+		{
+			canvas.DrawOval(xCenter - hRadius, yCenter - vRadius, xCenter + hRadius, yCenter + vRadius, paintFill);
 		}
 
 		public void SetFont(string name, int size, FontStyle style)
@@ -53,24 +74,24 @@ namespace Uni2D
 			else if ((style & FontStyle.Italic) != 0)
 				typefaceStyle = TypefaceStyle.Italic;
 
-			paint.SetTypeface(Typeface.Create(name, typefaceStyle));
-			paint.TextSize = size;
+			paintStroke.SetTypeface(Typeface.Create(name, typefaceStyle));
+			paintStroke.TextSize = size;
 		}
 
 		public Xamarin.Forms.Size MeasureText(string text)
 		{
-			return new Xamarin.Forms.Size(paint.MeasureText(text), paint.FontSpacing);
+			return new Xamarin.Forms.Size(paintStroke.MeasureText(text), paintStroke.FontSpacing);
 		}
 
 		public void DrawText(string text, float x, float y)
 		{
-			canvas.DrawText(text, x, y, paint);
+			canvas.DrawText(text, x, y, paintStroke);
 		}
 
 		public void DrawText(string text, float x, float y, float width, float height, Xamarin.Forms.TextAlignment hAlignment, Xamarin.Forms.TextAlignment vAlignment)
 		{
-			float textWidth = paint.MeasureText(text);
-			float textHeight = paint.FontSpacing;
+			float textWidth = paintStroke.MeasureText(text);
+			float textHeight = paintStroke.FontSpacing;
 
 			if ((hAlignment & Xamarin.Forms.TextAlignment.Center) != 0)
 				x += (width - textWidth) / 2;
@@ -82,48 +103,35 @@ namespace Uni2D
 			else if ((vAlignment & Xamarin.Forms.TextAlignment.End) != 0)
 				y += height - textHeight;
 
-			canvas.DrawText(text, x, y, paint);
+			canvas.DrawText(text, x, y, paintStroke);
 		}
 
 		public Xamarin.Forms.Color Color
 		{
-			get { return Xamarin.Forms.Color.FromUint((uint)paint.Color.ToArgb()); }
-			set { paint.Color = value.ToAndroid(); }
+			get { return Xamarin.Forms.Color.FromUint((uint)paintStroke.Color.ToArgb()); }
+			set { paintStroke.Color = paintFill.Color = value.ToAndroid(); }
 		}
 
 		public float StrokeWidth
 		{
-			get { return paint.StrokeWidth; }
-			set { paint.StrokeWidth = value; }
-		}
-
-		public StrokeStyle StrokeStyle
-		{
-			get { return strokeStyles[paint.GetStyle()]; }
-			set { paint.SetStyle(strokeStyles[value]); }
+			get { return paintStroke.StrokeWidth; }
+			set { paintStroke.StrokeWidth = value; }
 		}
 
 		public CapStyle StrokeCapStyle
 		{
-			get	{ return capStyles[paint.StrokeCap]; }
-			set { paint.StrokeCap = capStyles[value]; }
+			get	{ return capStyles[paintStroke.StrokeCap]; }
+			set { paintStroke.StrokeCap = capStyles[value]; }
 		}
 
 		public JoinStyle StrokeJoinStyle
 		{
-			get { return joinStyles[paint.StrokeJoin]; }
-			set { paint.StrokeJoin = joinStyles[value]; }
+			get { return joinStyles[paintStroke.StrokeJoin]; }
+			set { paintStroke.StrokeJoin = joinStyles[value]; }
 		}
 
-		public float Width { get; internal set; }
-		public float Height { get; internal set; }
-
-		private static readonly BiDictionary<StrokeStyle, Paint.Style> strokeStyles = new BiDictionary<StrokeStyle, Paint.Style>()
-		{
-			[StrokeStyle.Fill] = Paint.Style.Fill,
-			[StrokeStyle.Stroke] = Paint.Style.Stroke,
-			[StrokeStyle.StrokeAndFill] = Paint.Style.FillAndStroke
-		};
+		public float Width { get { return canvas.Width; } }
+		public float Height { get { return canvas.Height; } }
 
 		private static readonly BiDictionary<CapStyle, Paint.Cap> capStyles = new BiDictionary<CapStyle, Paint.Cap>()
 		{
