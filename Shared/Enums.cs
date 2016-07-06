@@ -19,4 +19,18 @@ namespace Uni2D
 		Square,
 		Round
 	}
+
+	public enum JoinStyle
+	{
+		Bevel,
+		Miter,
+		Round
+	}
+
+	[Flags]
+	public enum FontStyle
+	{
+		Bold,
+		Italic
+	}
 }
