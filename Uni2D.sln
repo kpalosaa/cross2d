@@ -21,11 +21,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.iOS", "UnitTest.iO
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		UnitTest\UnitTest\UnitTest.projitems*{12f57e3a-6ac5-4b88-b19a-252f200e6ccc}*SharedItemsImports = 4
 		UnitTest\UnitTest\UnitTest.projitems*{3464b7b3-df98-4a76-8381-ca6a00575bde}*SharedItemsImports = 13
 		UnitTest\UnitTest\UnitTest.projitems*{74058b3e-938c-49aa-a64e-05fc8ecc5d0c}*SharedItemsImports = 4
 		UnitTest\UnitTest\UnitTest.projitems*{8aa5a4f9-4e85-4457-8114-7e589116aa4a}*SharedItemsImports = 4
 		Shared\Shared.projitems*{a3380067-9a6b-4f6e-a2a6-89ea19eb6f46}*SharedItemsImports = 4
 		Shared\Shared.projitems*{b8d85931-22fa-478e-8ae6-e7841c9c5342}*SharedItemsImports = 13
+		Shared\Shared.projitems*{c3264fa7-e6dc-4f9b-abd9-b8afeb4d8906}*SharedItemsImports = 4
 		Shared\Shared.projitems*{e844b5c6-1ed8-47fb-ae07-e5a7b5fbeb30}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

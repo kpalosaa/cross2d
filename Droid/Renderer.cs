@@ -32,6 +32,16 @@ namespace Uni2D
 			Draw(context);
 		}
 
+		public IPath CreatePath()
+		{
+			return new Path();
+		}
+
+		public IGeometry CreateCircle(float xCenter, float yCenter, float radius)
+		{
+			return Geometry.CreateCircle(xCenter, yCenter, radius);
+		}
+
 		protected abstract void Draw(IContext context);
 	}
 }
