@@ -33,5 +33,22 @@ namespace Uni2D
 		{
 			path.AddArc(xCenter - radius, yCenter - radius, xCenter + radius, yCenter + radius, startAngle, endAngle - startAngle);
 		}
+
+		public void AddRect(float x, float y, float width, float height)
+		{
+			path.AddRect(x, y, width, height, Android.Graphics.Path.Direction.Cw);
+		}
+
+		public void AddCircle(float xCenter, float yCenter, float radius)
+		{
+			path.AddCircle(xCenter, yCenter, radius, Android.Graphics.Path.Direction.Cw);
+		}
+
+		public void AddEllipse(float xCenter, float yCenter, float hRadius, float vRadius)
+		{
+			path.AddOval(xCenter - hRadius, yCenter - vRadius, xCenter + hRadius, yCenter + vRadius, Android.Graphics.Path.Direction.Cw);
+		}
+
+		internal Android.Graphics.Path NativePath { get { return path; } }
 	}
 }

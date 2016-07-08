@@ -12,7 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)BiDictionary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Definitions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IGeometry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathHelper.cs" />
   </ItemGroup>
 </Project>

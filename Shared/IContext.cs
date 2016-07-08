@@ -27,6 +27,16 @@ namespace Uni2D
 		void DrawText(string text, float x, float y);
 		void DrawText(string text, float x, float y, float width, float height, TextAlignment hAlignment, TextAlignment vAlignment);
 
+		void DrawPath(IPath path, float x, float y);
+		void FillPath(IPath path, float x, float y);
+
+		void Save();
+		void Restore();
+
+		void Translate(float sx, float sy);
+		void Scale(float dx, float dy);
+		void Rotate(float angle);
+
 		Color Color { get; set; }
 
 		float StrokeWidth { get; set; }

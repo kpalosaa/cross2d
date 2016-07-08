@@ -123,6 +123,47 @@ namespace Uni2D
 			canvas.DrawText(text, x, y - paintFill.GetFontMetrics().Ascent, paintFill);
 		}
 
+		public void DrawPath(IPath path, float x, float y)
+		{
+			canvas.Save();
+			canvas.Translate(x, y);
+			canvas.DrawPath(((Path)path).NativePath, paintStroke);
+			canvas.Restore();
+		}
+
+		public void FillPath(IPath path, float x, float y)
+		{
+			canvas.Save();
+			canvas.Translate(x, y);
+			canvas.DrawPath(((Path)path).NativePath, paintFill);
+			canvas.Restore();
+		}
+
+		public void Save()
+		{
+			canvas.Save();
+		}
+
+		public void Restore()
+		{
+			canvas.Restore();
+		}
+
+		public void Translate(float dx, float dy)
+		{
+			canvas.Translate(dx, dy);
+		}
+
+		public void Scale(float sx, float sy)
+		{
+			canvas.Scale(sx, sy);
+		}
+
+		public void Rotate(float angle)
+		{
+			canvas.Rotate(angle * MathHelper.RadToDeg);
+		}
+
 		public Xamarin.Forms.Color Color
 		{
 			get { return Xamarin.Forms.Color.FromUint((uint)paintStroke.Color.ToArgb()); }

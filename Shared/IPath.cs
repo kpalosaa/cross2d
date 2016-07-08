@@ -9,5 +9,9 @@ namespace Uni2D
 
 		void AddLine(float x, float y);
 		void AddArc(float xCenter, float yCenter, float radius, float startAngle, float endAngle);
+
+		void AddRect(float x, float y, float width, float height);
+		void AddCircle(float xCenter, float yCenter, float radius);
+		void AddEllipse(float xCenter, float yCenter, float hRadius, float vRadius);
 	}
 }
