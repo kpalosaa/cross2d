@@ -63,41 +63,17 @@ namespace Uni2D
 			canvas.DrawOval(xCenter - hRadius, yCenter - vRadius, xCenter + hRadius, yCenter + vRadius, paintFill);
 		}
 
-		public void SetFont(string name, int size, FontStyle style)
+		public void SetFont(IFont font)
 		{
-			paintFill.SetTypeface(Typeface.Create(name, GetFontStyle(style)));
-			paintFill.TextSize = size;
-		}
-
-		public void SetFont(int size, FontStyle style = 0)
-		{
-			paintFill.SetTypeface(Typeface.DefaultFromStyle(GetFontStyle(style)));
-			paintFill.TextSize = size;
-		}
-
-		public void SetFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
-		{
-			paintFill.SetTypeface(Typeface.DefaultFromStyle(GetFontStyle(style)));
-			paintFill.TextSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
-		}
-
-		private TypefaceStyle GetFontStyle(FontStyle style)
-		{
-			TypefaceStyle typefaceStyle = TypefaceStyle.Normal;
-
-			if ((style & (FontStyle.Bold | FontStyle.Italic)) != 0)
-				typefaceStyle = TypefaceStyle.BoldItalic;
-			else if ((style & FontStyle.Bold) != 0)
-				typefaceStyle = TypefaceStyle.Bold;
-			else if ((style & FontStyle.Italic) != 0)
-				typefaceStyle = TypefaceStyle.Italic;
-
-			return typefaceStyle;
+			paintFill.SetTypeface(((Font)font).NativeTypeface);
+			paintFill.TextSize = ((Font)font).NativeSize;
 		}
 
 		public Xamarin.Forms.Size MeasureText(string text)
 		{
-			return new Xamarin.Forms.Size(paintFill.MeasureText(text), paintFill.FontSpacing);
+			Paint.FontMetrics fm = paintFill.GetFontMetrics();
+
+			return new Xamarin.Forms.Size(paintFill.MeasureText(text), fm.Bottom - fm.Ascent);
 		}
 
 		public void DrawText(string text, float x, float y)
@@ -107,8 +83,10 @@ namespace Uni2D
 
 		public void DrawText(string text, float x, float y, float width, float height, Xamarin.Forms.TextAlignment hAlignment, Xamarin.Forms.TextAlignment vAlignment)
 		{
+			Paint.FontMetrics fm = paintFill.GetFontMetrics();
+
 			float textWidth = paintFill.MeasureText(text);
-			float textHeight = paintFill.FontSpacing;
+			float textHeight = fm.Descent - fm.Ascent;
 
 			if ((hAlignment & Xamarin.Forms.TextAlignment.Center) != 0)
 				x += (width - textWidth) / 2;
@@ -120,7 +98,7 @@ namespace Uni2D
 			else if ((vAlignment & Xamarin.Forms.TextAlignment.End) != 0)
 				y += height - textHeight;
 
-			canvas.DrawText(text, x, y - paintFill.GetFontMetrics().Ascent, paintFill);
+			canvas.DrawText(text, x, y - fm.Ascent, paintFill);
 		}
 
 		public void DrawPath(IPath path, float x, float y)

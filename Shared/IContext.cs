@@ -18,9 +18,7 @@ namespace Uni2D
 		void DrawEllipse(float xCenter, float yCenter, float hRadius, float vRadius);
 		void FillEllipse(float xCenter, float yCenter, float hRadius, float vRadius);
 
-		void SetFont(string name, int size, FontStyle style = 0);
-		void SetFont(int size, FontStyle style = 0);
-		void SetFont(NamedSize namedSize, FontStyle style = 0);
+		void SetFont(IFont font);
 
 		Size MeasureText(string text);
 

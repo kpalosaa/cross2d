@@ -3,8 +3,7 @@ using Xamarin.Forms;
 
 #if WINDOWS_UWP
 [assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Circles), typeof(Uni2D.UnitTest.CirclesRenderer))]
-#endif
-#if __ANDROID__
+#else
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Circles), typeof(Uni2D.UnitTest.CirclesRenderer))]
 #endif
 
@@ -23,8 +22,8 @@ namespace Uni2D.UnitTest
 			context.StrokeWidth = 15;
 			context.StrokeCapStyle = CapStyle.Round;
 
-			context.DrawCircle(150, 400, 100);
-			context.FillCircle(400, 400, 100);
+			context.DrawCircle(70, 70, 50);
+			context.FillCircle(70, 190, 50);
 		}
 	}
 }

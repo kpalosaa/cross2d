@@ -24,14 +24,35 @@ namespace Uni2D
 				Control.DrawView += OnDrawView;
 			}
 		}
-
+			
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
 			Context context = new Context(e.Context, e.Rect);
-			context.Width = (float)Element.Width;
-			context.Height = (float)Element.Height;
-
+			context.Width = (float)Control.Bounds.Width;
+			context.Height = (float)Control.Bounds.Height;
+			//e.Context.TranslateCTM(0, -Control.Bounds.Height);
+			//e.Context.ScaleCTM(1, -1);
 			Draw(context);
+		}
+
+		public IPath CreatePath()
+		{
+			return new Path();
+		}
+
+		public IFont CreateFont(string name, int size, FontStyle style = 0)
+		{
+			return new Font(name, size, style);
+		}
+
+		public IFont CreateFont(int size, FontStyle style = 0)
+		{
+			return new Font(size, style);
+		}
+
+		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		{
+			return new Font(namedSize, style);
 		}
 
 		protected abstract void Draw(IContext context);

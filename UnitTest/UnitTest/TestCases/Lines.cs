@@ -3,8 +3,7 @@ using Xamarin.Forms;
 
 #if WINDOWS_UWP
 [assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Lines), typeof(Uni2D.UnitTest.LinesRenderer))]
-#endif
-#if __ANDROID__
+#else
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Lines), typeof(Uni2D.UnitTest.LinesRenderer))]
 #endif
 
@@ -23,11 +22,11 @@ namespace Uni2D.UnitTest
 			context.StrokeWidth = 15;
 			context.StrokeCapStyle = CapStyle.Round;
 
-			context.DrawLine(50, 550, 200, 750);
+			context.DrawLine(50, 50, 200, 200);
 			context.StrokeCapStyle = CapStyle.Flat;
-			context.DrawLine(50, 600, 200, 800);
+			context.DrawLine(50, 90, 200, 240);
 			context.StrokeCapStyle = CapStyle.Square;
-			context.DrawLine(50, 650, 200, 850);
+			context.DrawLine(50, 130, 200, 280);
 		}
 	}
 }

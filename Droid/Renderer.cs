@@ -37,6 +37,21 @@ namespace Uni2D
 			return new Path();
 		}
 
+		public IFont CreateFont(string name, int size, FontStyle style = 0)
+		{
+			return new Font(name, size, style);
+		}
+
+		public IFont CreateFont(int size, FontStyle style = 0)
+		{
+			return new Font(size, style);
+		}
+
+		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		{
+			return new Font(namedSize, style);
+		}
+
 		protected abstract void Draw(IContext context);
 	}
 }

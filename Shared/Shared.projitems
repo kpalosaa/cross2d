@@ -14,5 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Definitions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPath.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFont.cs" />
   </ItemGroup>
 </Project>

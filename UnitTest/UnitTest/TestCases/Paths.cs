@@ -3,8 +3,7 @@ using Xamarin.Forms;
 
 #if WINDOWS_UWP
 [assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Paths), typeof(Uni2D.UnitTest.PathRenderer))]
-#endif
-#if __ANDROID__
+#else
 [assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Paths), typeof(Uni2D.UnitTest.PathRenderer))]
 #endif
 

@@ -19,7 +19,7 @@ namespace Uni2D
 	[Flags]
 	public enum FontStyle
 	{
-		Bold,
-		Italic
+		Bold = 1 << 0,
+		Italic = 1 << 1
 	}
 }

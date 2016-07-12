@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-
 using Xamarin.Forms;
 
 namespace Uni2D.UnitTest
@@ -26,6 +25,7 @@ namespace Uni2D.UnitTest
 
 			MainPage = new ContentPage
 			{
+				Padding = Device.OnPlatform(new Thickness(0, 20, 0, 0), new Thickness(0, 0, 0, 0), new Thickness(0, 0, 0, 0)),
 				Content = new StackLayout
 				{
 					HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Fill, Expands = true },
@@ -66,7 +66,7 @@ namespace Uni2D.UnitTest
 						Xamarin.Forms.View test = Activator.CreateInstance(type) as Xamarin.Forms.View;
 						if (test != null)
 						{
-							test.IsVisible = false;
+							SetVisibility(test, false);
 
 							string name = attrib.Name != null ? attrib.Name : type.Name;
 
@@ -85,12 +85,23 @@ namespace Uni2D.UnitTest
 				if (selectTestCase.SelectedIndex >= 0)
 				{
 					if (currentTestCase != null)
-						currentTestCase.IsVisible = false;
+						SetVisibility(currentTestCase, false);
 
 					currentTestCase = testCaseMap[selectTestCase.Items[selectTestCase.SelectedIndex]];
-					currentTestCase.IsVisible = true;
+					SetVisibility(currentTestCase, true);
 				}
 			};
+
+			selectTestCase.SelectedIndex = 3;
+		}
+
+		private void SetVisibility(Xamarin.Forms.View view, bool isVisible)
+		{
+#if __IOS__
+			view.Opacity = isVisible ? 1d : 0d;
+#else
+			view.IsVisible = isVisible;
+#endif
 		}
 
 		protected override void OnStart()

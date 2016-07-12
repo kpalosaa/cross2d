@@ -1,6 +1,11 @@
-﻿using UIKit;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace UnitTest.iOS
+using Foundation;
+using UIKit;
+
+namespace formtest.iOS
 {
 	public class Application
 	{
@@ -13,3 +18,4 @@ namespace UnitTest.iOS
 		}
 	}
 }
+

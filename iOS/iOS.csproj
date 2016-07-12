@@ -64,6 +64,8 @@
     <Compile Include="Renderer.cs" />
     <Compile Include="View.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Path.cs" />
+    <Compile Include="Font.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
