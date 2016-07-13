@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Uni2D
 {
-	public interface IContext
+	public interface IContext : IDisposable
 	{
 		void Clear();
 
@@ -27,6 +27,8 @@ namespace Uni2D
 
 		void DrawPath(IPath path, float x, float y);
 		void FillPath(IPath path, float x, float y);
+
+		void DrawImage(IImage image, float x, float y, float width, float height);
 
 		void Save();
 		void Restore();

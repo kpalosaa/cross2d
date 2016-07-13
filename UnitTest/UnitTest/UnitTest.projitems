@@ -15,5 +15,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)TestCases\Paths.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestCases\Texts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestCases\Images.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)testimage.jpg" />
   </ItemGroup>
 </Project>

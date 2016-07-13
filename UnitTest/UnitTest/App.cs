@@ -92,7 +92,7 @@ namespace Uni2D.UnitTest
 				}
 			};
 
-			selectTestCase.SelectedIndex = 3;
+			selectTestCase.SelectedIndex = 1;
 		}
 
 		private void SetVisibility(Xamarin.Forms.View view, bool isVisible)

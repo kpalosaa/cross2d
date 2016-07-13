@@ -12,6 +12,20 @@ namespace Uni2D
 			path = new CGPath();
 		}
 
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				path.Dispose();
+			}
+		}
+
 		public void BeginFigure(float x, float y)
 		{
 			path.MoveToPoint(x, y);

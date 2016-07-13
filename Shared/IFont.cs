@@ -2,7 +2,7 @@
 
 namespace Uni2D
 {
-	public interface IFont
+	public interface IFont : IDisposable
 	{
 	}
 }

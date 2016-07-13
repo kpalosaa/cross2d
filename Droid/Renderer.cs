@@ -27,9 +27,10 @@ namespace Uni2D
 
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
-			Context context = new Context(e.Canvas, e.Rect);
-
-			Draw(context);
+			using (Context context = new Context(e.Canvas, e.Rect))
+			{
+				Draw(context);
+			}
 		}
 
 		public IPath CreatePath()

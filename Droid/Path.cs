@@ -13,6 +13,20 @@ namespace Uni2D
 			path = new Android.Graphics.Path();
 		}
 
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				path.Dispose();
+			}
+		}
+
 		public void BeginFigure(float x, float y)
 		{
 			path.MoveTo(x, y);

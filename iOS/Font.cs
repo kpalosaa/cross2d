@@ -12,6 +12,20 @@ namespace Uni2D
 		{
 		}
 
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				nativeFont.Dispose();
+			}
+		}
+
 		public Font(string name, int size, FontStyle style = 0)
 		{
 			CTFontDescriptorAttributes fda = new CTFontDescriptorAttributes()

@@ -2,7 +2,7 @@
 
 namespace Uni2D
 {
-	public interface IPath
+	public interface IPath : IDisposable
 	{
 		void BeginFigure(float x, float y);
 		void EndFigure(bool close);

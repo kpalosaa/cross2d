@@ -27,12 +27,14 @@ namespace Uni2D
 			
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
-			Context context = new Context(e.Context, e.Rect);
-			context.Width = (float)Control.Bounds.Width;
-			context.Height = (float)Control.Bounds.Height;
-			//e.Context.TranslateCTM(0, -Control.Bounds.Height);
-			//e.Context.ScaleCTM(1, -1);
-			Draw(context);
+			using (Context context = new Context(e.Context, e.Rect))
+			{
+				context.Width = (float)Control.Bounds.Width;
+				context.Height = (float)Control.Bounds.Height;
+				//e.Context.TranslateCTM(0, -Control.Bounds.Height);
+				//e.Context.ScaleCTM(1, -1);
+				Draw(context);
+			}
 		}
 
 		public IPath CreatePath()
@@ -53,6 +55,11 @@ namespace Uni2D
 		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
 		{
 			return new Font(namedSize, style);
+		}
+
+		public IImage CreateImage(Xamarin.Forms.ImageSource source)
+		{
+			return new Image(source);
 		}
 
 		protected abstract void Draw(IContext context);

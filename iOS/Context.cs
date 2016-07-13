@@ -27,6 +27,19 @@ namespace Uni2D
 			lineSegment = new CGPoint[] { new CGPoint(), new CGPoint() };
 		}
 
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+			}
+		}
+
 		public void Clear()
 		{
 			context.FillRect(rect);
@@ -152,6 +165,11 @@ namespace Uni2D
 			context.AddPath(((Path)path).NativePath);
 			context.DrawPath(CGPathDrawingMode.Fill);
 			context.RestoreState();
+		}
+
+		public void DrawImage(IImage image, float x, float y, float width, float height)
+		{
+			context.DrawImage(new CGRect(x, y, width, height), ((Image)image).NativeImage);
 		}
 
 		public void Save()

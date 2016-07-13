@@ -66,6 +66,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Path.cs" />
     <Compile Include="Font.cs" />
+    <Compile Include="Image.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

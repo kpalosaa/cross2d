@@ -16,5 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)MathHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFont.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IImage.cs" />
   </ItemGroup>
 </Project>

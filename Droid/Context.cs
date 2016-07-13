@@ -7,9 +7,10 @@ namespace Uni2D
 	public sealed class Context : IContext
 	{
 		private Canvas canvas;
+		private Rect rect;
+
 		private Paint paintStroke;
 		private Paint paintFill;
-		private Rect rect;
 
 		internal Context(Canvas canvas, Rect rect)
 		{
@@ -21,6 +22,21 @@ namespace Uni2D
 
 			paintFill = new Paint();
 			paintFill.SetStyle(Paint.Style.Fill);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				paintStroke.Dispose();
+				paintFill.Dispose();
+			}
 		}
 
 		public void Clear()
