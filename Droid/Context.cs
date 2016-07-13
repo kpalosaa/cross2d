@@ -133,6 +133,19 @@ namespace Uni2D
 			canvas.Restore();
 		}
 
+		public void DrawImage(IImage image, float x, float y, float width, float height)
+		{
+			if (image != null)
+			{
+				Bitmap bitmap = ((Image)image).NativeImage;
+				if (bitmap != null)
+				{
+					using (RectF rect = new RectF(x, y, x + width - 1, y + height - 1))
+						canvas.DrawBitmap(bitmap, null, rect, null);
+				}
+			}
+		}
+
 		public void Save()
 		{
 			canvas.Save();

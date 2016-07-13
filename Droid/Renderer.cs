@@ -53,6 +53,11 @@ namespace Uni2D
 			return new Font(namedSize, style);
 		}
 
+		public IImage CreateImage(Xamarin.Forms.ImageSource source)
+		{
+			return new Image(Context, source);
+		}
+
 		protected abstract void Draw(IContext context);
 	}
 }

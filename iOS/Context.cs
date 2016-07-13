@@ -169,7 +169,12 @@ namespace Uni2D
 
 		public void DrawImage(IImage image, float x, float y, float width, float height)
 		{
-			context.DrawImage(new CGRect(x, y, width, height), ((Image)image).NativeImage);
+			if (image != null)
+			{
+				CGImage cgImage = ((Image)image).NativeImage;
+				if (cgImage != null)
+					context.DrawImage(new CGRect(x, y, width, height), cgImage);
+			}
 		}
 
 		public void Save()

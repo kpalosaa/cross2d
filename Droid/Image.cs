@@ -1,21 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
-using CoreGraphics;
-using UIKit;
 using Xamarin.Forms;
-using Foundation;
+using Xamarin.Forms.Platform.Android;
+using Android.Graphics;
 
 namespace Uni2D
 {
 	public class Image : IImage
 	{
-		private Xamarin.Forms.ImageSource source = null;
+		private ImageSource source = null;
 
-		private UIImage uiImage = null;
+		private Android.Content.Context context;
+		private Bitmap bitmap = null;
 
-		public Image(Xamarin.Forms.ImageSource source = null)
+		public Image(Android.Content.Context context, ImageSource source = null)
 		{
+			this.context = context;
 			if (source != null)
 				this.Source = source;
 		}
@@ -30,53 +31,49 @@ namespace Uni2D
 		{
 			if (disposing)
 			{
-				if (uiImage != null)
-					uiImage.Dispose();
+				if (bitmap != null)
+					bitmap.Dispose();
 			}
 		}
 
 		public Size Size
-		{ 
-			get 
+		{
+			get
 			{
-				if (uiImage == null)
+				if (bitmap == null)
 				{
 					return Size.Zero;
 				}
 				else
 				{
-					CGSize size = uiImage.Size;
-					return new Size(size.Width, size.Height);
+					return new Size(bitmap.Width, bitmap.Height);
 				}
 			}
 		}
 
-		public float Width { get { return uiImage != null ? (float)uiImage.Size.Width : 0; } }
-		public float Height { get { return uiImage != null ? (float)uiImage.Size.Height : 0; } }
+		public float Width { get { return bitmap != null ? bitmap.Width : 0; } }
+		public float Height { get { return bitmap != null ? bitmap.Height : 0; } }
 
-		internal CGImage NativeImage
+		internal Bitmap NativeImage
 		{
 			get
 			{
-				if (uiImage == null)
-					return null;
-				
-				return uiImage.CGImage;
+				return bitmap;
 			}
 		}
 
-		public Xamarin.Forms.ImageSource Source
+		public ImageSource Source
 		{
 			get { return source; }
 			set
 			{
 				if (source == value)
 					return;
-				
-				if (uiImage != null)
+
+				if (bitmap != null)
 				{
-					uiImage.Dispose();
-					uiImage = null;
+					bitmap.Dispose();
+					bitmap = null;
 				}
 
 				source = value;
@@ -84,7 +81,7 @@ namespace Uni2D
 				if (source == null)
 					return;
 
-				if (source is Xamarin.Forms.FileImageSource)
+				if (source is FileImageSource)
 				{
 					try
 					{
@@ -92,16 +89,21 @@ namespace Uni2D
 						if (filesource != null)
 						{
 							var file = filesource.File;
-							if (!string.IsNullOrEmpty(file))
-								uiImage = File.Exists(file) ? new UIImage(file) : UIImage.FromBundle(file);
+							if (!String.IsNullOrWhiteSpace(file))
+							{
+								if (File.Exists(file))
+									bitmap = BitmapFactory.DecodeFile(file);
+								else
+									bitmap = context.Resources.GetBitmap(file);
+							}
 						}
 					}
 					catch (Exception)
 					{
-						uiImage = null;
+						bitmap = null;
 					}
 				}
-				else if (source is Xamarin.Forms.StreamImageSource)
+				else if (source is StreamImageSource)
 				{
 					try
 					{
@@ -110,13 +112,13 @@ namespace Uni2D
 						{
 							using (var stream = streamsource.Stream.Invoke(default(CancellationToken)).Result)
 							{
-								uiImage = UIImage.LoadFromData(NSData.FromStream(stream), (float)UIScreen.MainScreen.Scale);
+								bitmap = BitmapFactory.DecodeStream(stream);
 							}
 						}
 					}
 					catch (Exception)
 					{
-						uiImage = null;
+						bitmap = null;
 					}
 				}
 			}
