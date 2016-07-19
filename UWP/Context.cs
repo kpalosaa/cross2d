@@ -17,15 +17,29 @@ namespace Uni2D
 		private CanvasStrokeStyle strokeStyle = new CanvasStrokeStyle();
 		private Color color;
 		private float strokeWidth = 1;
-		private CanvasTextFormat textFormat = new CanvasTextFormat();
-		private string defaultFontFamily;
+		private CanvasTextFormat defaultTextFormat = new CanvasTextFormat();
+
+		private IFont font;
 
 		internal Context(CanvasControl canvas, CanvasDrawingSession ds)
 		{
 			this.canvas = canvas;
 			this.ds = ds;
+		}
 
-			defaultFontFamily = textFormat.FontFamily;
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				strokeStyle.Dispose();
+				defaultTextFormat.Dispose();
+			}
 		}
 
 		public void Clear()
@@ -68,47 +82,17 @@ namespace Uni2D
 			ds.FillEllipse(xCenter, yCenter, hRadius, vRadius, color);
 		}
 
-		public void SetFont(string name, int size, FontStyle style)
+		public void SetFont(IFont font)
 		{
-			SetFontStyle(style);
-
-			textFormat.FontFamily = name;
-			textFormat.FontSize = size;
-		}
-
-		public void SetFont(int size, FontStyle style = 0)
-		{
-			SetFontStyle(style);
-
-			textFormat.FontFamily = defaultFontFamily;
-			textFormat.FontSize = size;
-		}
-
-		public void SetFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
-		{
-			SetFontStyle(style);
-
-			textFormat.FontFamily = defaultFontFamily;
-			textFormat.FontSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
-		}
-
-		private void SetFontStyle(FontStyle style)
-		{
-			if ((style & FontStyle.Bold) != 0)
-				textFormat.FontWeight = Windows.UI.Text.FontWeights.Bold;
-			else
-				textFormat.FontWeight = Windows.UI.Text.FontWeights.Normal;
-
-			if ((style & FontStyle.Italic) != 0)
-				textFormat.FontStyle |= Windows.UI.Text.FontStyle.Italic;
-			else
-				textFormat.FontStyle = 0;
+			this.font = font;
 		}
 
 		public Xamarin.Forms.Size MeasureText(string text)
 		{
-			CanvasTextLayout textLayout = new CanvasTextLayout(ds, text, textFormat, 0.0f, 0.0f);
-			Xamarin.Forms.Size size = new Xamarin.Forms.Size(textLayout.DrawBounds.Width, textLayout.DrawBounds.Height);
+			CanvasTextFormat textFormat = font != null ? ((Font)font).NativeTextFormat : defaultTextFormat;
+
+			CanvasTextLayout textLayout = new CanvasTextLayout(ds, text, textFormat, Single.PositiveInfinity, Single.PositiveInfinity);
+			Xamarin.Forms.Size size = new Xamarin.Forms.Size(textLayout.LayoutBounds.Width, textLayout.LayoutBounds.Height);
 			textLayout.Dispose();
 
 			return size;
@@ -116,6 +100,8 @@ namespace Uni2D
 
 		public void DrawText(string text, float x, float y)
 		{
+			CanvasTextFormat textFormat = font != null ? ((Font)font).NativeTextFormat : defaultTextFormat;
+
 			textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
 			textFormat.VerticalAlignment = CanvasVerticalAlignment.Top;
 
@@ -124,6 +110,8 @@ namespace Uni2D
 
 		public void DrawText(string text, float x, float y, float width, float height, Xamarin.Forms.TextAlignment hAlignment, Xamarin.Forms.TextAlignment vAlignment)
 		{
+			CanvasTextFormat textFormat = font != null ? ((Font)font).NativeTextFormat : defaultTextFormat;
+
 			switch (hAlignment)
 			{
 				case Xamarin.Forms.TextAlignment.Start:	textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left; break;
@@ -139,6 +127,42 @@ namespace Uni2D
 			}
 
 			ds.DrawText(text, x, y, width, height, color, textFormat);
+		}
+
+		public void DrawPath(IPath path, float x, float y)
+		{
+		}
+
+		public void FillPath(IPath path, float x, float y)
+		{
+		}
+
+		public void DrawImage(IImage image, float x, float y, float width, float height)
+		{
+			if (image != null)
+			{
+				ds.DrawImage(((Image)image).NativeBitmap, new Rect(x, y, width, height));
+			}
+		}
+
+		public void Save()
+		{
+		}
+
+		public void Restore()
+		{
+		}
+
+		public void Translate(float dx, float dy)
+		{
+		}
+
+		public void Scale(float sx, float sy)
+		{
+		}
+
+		public void Rotate(float angle)
+		{
 		}
 
 		public Xamarin.Forms.Color Color

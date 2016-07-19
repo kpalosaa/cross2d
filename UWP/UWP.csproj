@@ -108,9 +108,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Font.cs" />
+    <Compile Include="Image.cs" />
+    <Compile Include="Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer.cs" />
     <EmbeddedResource Include="Properties\UWP.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\UnitTest\UnitTest\TestImage.jpg">
+      <Link>TestImage.jpg</Link>
+    </Content>
   </ItemGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
