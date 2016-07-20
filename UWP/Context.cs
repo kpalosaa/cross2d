@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.Brushes;
@@ -20,6 +22,8 @@ namespace Uni2D
 		private CanvasTextFormat defaultTextFormat = new CanvasTextFormat();
 
 		private IFont font;
+
+		private Stack<Matrix3x2> stateStack;
 
 		internal Context(CanvasControl canvas, CanvasDrawingSession ds)
 		{
@@ -131,10 +135,12 @@ namespace Uni2D
 
 		public void DrawPath(IPath path, float x, float y)
 		{
+			ds.DrawGeometry(((Path)path).GetGeometry(), x, y, color, strokeWidth, strokeStyle);
 		}
 
 		public void FillPath(IPath path, float x, float y)
 		{
+			ds.FillGeometry(((Path)path).GetGeometry(), x, y, color);
 		}
 
 		public void DrawImage(IImage image, float x, float y, float width, float height)
@@ -147,22 +153,31 @@ namespace Uni2D
 
 		public void Save()
 		{
+			if (stateStack == null)
+				stateStack = new Stack<Matrix3x2>();
+
+			stateStack.Push(ds.Transform);
 		}
 
 		public void Restore()
 		{
+			if (stateStack != null && stateStack.Count > 0)
+				ds.Transform = stateStack.Pop();
 		}
 
 		public void Translate(float dx, float dy)
 		{
+			ds.Transform *= Matrix3x2.CreateTranslation(dx, dy);
 		}
 
 		public void Scale(float sx, float sy)
 		{
+			ds.Transform *= Matrix3x2.CreateScale(sx, sy);
 		}
 
 		public void Rotate(float angle)
 		{
+			ds.Transform *= Matrix3x2.CreateRotation(angle);
 		}
 
 		public Xamarin.Forms.Color Color

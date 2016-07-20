@@ -35,7 +35,7 @@ namespace Uni2D
 
 		public IPath CreatePath()
 		{
-			return new Path();
+			return new Path(Control);
 		}
 
 		public IFont CreateFont(string name, int size, FontStyle style = 0)
