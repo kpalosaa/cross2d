@@ -86,14 +86,10 @@ namespace Uni2D
 						var streamsource = source as StreamImageSource;
 						if (streamsource != null && streamsource.Stream != null)
 						{
-
-							var stream = streamsource.Stream.Invoke(default(CancellationToken)).Result;
-							bitmap = CanvasBitmap.LoadAsync(resourceCreator, stream.AsRandomAccessStream()).AsTask().Result;
-
-							/*using (var stream = streamsource.Stream.Invoke(default(CancellationToken)).Result)
+							using (var stream = streamsource.Stream.Invoke(default(CancellationToken)).Result)
 							{
-								bitmap = CanvasBitmap.LoadAsync(resourceCreator, stream.AsRandomAccessStream()).GetResults();
-							}*/
+								bitmap = CanvasBitmap.LoadAsync(resourceCreator, stream.AsRandomAccessStream()).AsTask().Result;
+							}
 						}
 					}
 					catch (Exception)

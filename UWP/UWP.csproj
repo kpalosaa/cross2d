@@ -115,11 +115,6 @@
     <Compile Include="Renderer.cs" />
     <EmbeddedResource Include="Properties\UWP.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\UnitTest\UnitTest\TestImage.jpg">
-      <Link>TestImage.jpg</Link>
-    </Content>
-  </ItemGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
