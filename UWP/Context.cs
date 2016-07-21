@@ -14,7 +14,7 @@ namespace Uni2D
 	public class Context : IContext
 	{
 		private CanvasControl canvas;
-		private CanvasDrawingSession ds;
+		internal CanvasDrawingSession ds;
 
 		private CanvasStrokeStyle strokeStyle = new CanvasStrokeStyle();
 		private Color color;
@@ -25,10 +25,9 @@ namespace Uni2D
 
 		private Stack<Matrix3x2> stateStack;
 
-		internal Context(CanvasControl canvas, CanvasDrawingSession ds)
+		internal Context(CanvasControl canvas)
 		{
 			this.canvas = canvas;
-			this.ds = ds;
 		}
 
 		public void Dispose()
@@ -204,7 +203,17 @@ namespace Uni2D
 			}
 		}
 
-		public JoinStyle StrokeJoinStyle { get; set; }
+		public JoinStyle StrokeJoinStyle
+		{
+			get
+			{
+				return joinStyles[strokeStyle.LineJoin];
+			}
+			set
+			{
+				strokeStyle.LineJoin = joinStyles[value];
+			}
+		}
 
 		public float Width { get { return (float)canvas.Size.Width; } }
 		public float Height { get { return (float)canvas.Size.Height; } }
@@ -214,6 +223,13 @@ namespace Uni2D
 			[CapStyle.Flat] = CanvasCapStyle.Flat,
 			[CapStyle.Round] = CanvasCapStyle.Round,
 			[CapStyle.Square] = CanvasCapStyle.Square
+		};
+
+		private static readonly BiDictionary<JoinStyle, CanvasLineJoin> joinStyles = new BiDictionary<JoinStyle, CanvasLineJoin>()
+		{
+			[JoinStyle.Bevel] = CanvasLineJoin.Bevel,
+			[JoinStyle.Miter] = CanvasLineJoin.Miter,
+			[JoinStyle.Round] = CanvasLineJoin.Round
 		};
 	}
 

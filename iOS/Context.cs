@@ -8,8 +8,10 @@ namespace Uni2D
 {
 	public class Context : IContext
 	{
-		private CGContext context;
-		private CGRect rect;
+		private View view;
+
+		internal CGContext context;
+		internal CGRect rect;
 
 		private CGLineCap lineCap;
 		private CGLineJoin lineJoin;
@@ -19,10 +21,9 @@ namespace Uni2D
 		private Font font;
 		private CGPoint[] lineSegment;
 
-		public Context(CGContext context, CGRect rect)
+		public Context(View view)
 		{
-			this.context = context;
-			this.rect = rect;
+			this.view = view;
 
 			lineSegment = new CGPoint[] { new CGPoint(), new CGPoint() };
 		}

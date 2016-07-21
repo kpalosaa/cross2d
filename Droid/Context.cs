@@ -6,16 +6,15 @@ namespace Uni2D
 {
 	public sealed class Context : IContext
 	{
-		private Canvas canvas;
-		private Rect rect;
+		private View view;
+		internal Canvas canvas;
 
 		private Paint paintStroke;
 		private Paint paintFill;
 
-		internal Context(Canvas canvas, Rect rect)
+		internal Context(View view)
 		{
-			this.canvas = canvas;
-			this.rect = rect;
+			this.view = view;
 
 			paintStroke = new Paint();
 			paintStroke.SetStyle(Paint.Style.Stroke);

@@ -4,33 +4,59 @@ namespace Uni2D
 {
 	public abstract class Renderer<TView> : Xamarin.Forms.Platform.Android.ViewRenderer<TView, View> where TView: Xamarin.Forms.View
 	{
+		private Uni2D.View view;
+		private Uni2D.Context context;
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			if (disposing)
+			{
+				context.Dispose();
+			}
+		}
+
 		protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<TView> e)
 		{
 			base.OnElementChanged(e);
 
-			if (Control == null)
+			if (view == null)
 			{
-				View view = new View(this.Context);
+				view = new Uni2D.View(this.Context);
 				SetNativeControl(view);
+
+				context = new Uni2D.Context(view);
+				Created();
 			}
 
 			if (e.OldElement != null)
 			{
-				Control.DrawView -= OnDrawView;
+				e.OldElement.SizeChanged -= OnSizeChanged;
+				view.DrawView -= OnDrawView;
 			}
 
 			if (e.NewElement != null)
 			{
-				Control.DrawView += OnDrawView;
+				e.NewElement.SizeChanged += OnSizeChanged;
+				view.DrawView += OnDrawView;
 			}
+		}
+
+		private void OnSizeChanged(object sender, EventArgs e)
+		{
+			SizeChanged((float)Control.Width, (float)Control.Height);
 		}
 
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
-			using (Context context = new Context(e.Canvas, e.Rect))
-			{
-				Draw(context);
-			}
+			context.canvas = e.Canvas;
+			Draw(context);
+		}
+
+		public new void Invalidate()
+		{
+			Control.Invalidate();
 		}
 
 		public IPath CreatePath()
@@ -58,6 +84,8 @@ namespace Uni2D
 			return new Image(Context, source);
 		}
 
+		protected virtual void Created() { }
+		protected virtual void SizeChanged(float width, float height) { }
 		protected abstract void Draw(IContext context);
 	}
 }

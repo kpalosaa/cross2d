@@ -4,37 +4,62 @@ namespace Uni2D
 {
 	public abstract class Renderer<TView> : Xamarin.Forms.Platform.iOS.ViewRenderer<TView, View> where TView : Xamarin.Forms.View
 	{
+		private View view;
+		private Context context;
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			if (disposing)
+			{
+				context.Dispose();
+			}
+		}
+
 		protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<TView> e)
 		{
 			base.OnElementChanged(e);
 
-			if (Control == null)
+			if (view == null)
 			{
-				View view = new View();
+				view = new View();
 				SetNativeControl(view);
+
+				context = new Context(view);
+				Created();
 			}
 
 			if (e.OldElement != null)
 			{
-				Control.DrawView -= OnDrawView;
+				e.OldElement.SizeChanged -= OnSizeChanged;
+				view.DrawView -= OnDrawView;
 			}
 
 			if (e.NewElement != null)
 			{
-				Control.DrawView += OnDrawView;
+				e.NewElement.SizeChanged += OnSizeChanged;
+				view.DrawView += OnDrawView;
 			}
 		}
-			
+		
+		private void OnSizeChanged(object sender, EventArgs e)
+		{
+			SizeChanged((float)Control.Bounds.Width, (float)Control.Bounds.Height);
+		}
+
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
-			using (Context context = new Context(e.Context, e.Rect))
-			{
-				context.Width = (float)Control.Bounds.Width;
-				context.Height = (float)Control.Bounds.Height;
-				//e.Context.TranslateCTM(0, -Control.Bounds.Height);
-				//e.Context.ScaleCTM(1, -1);
-				Draw(context);
-			}
+			context.context = e.Context;
+			context.rect = e.Rect;
+			context.Width = (float)Control.Bounds.Width;
+			context.Height = (float)Control.Bounds.Height;
+			Draw(context);
+		}
+
+		public void Invalidate()
+		{
+			Control.SetNeedsDisplay();
 		}
 
 		public IPath CreatePath()
@@ -62,6 +87,8 @@ namespace Uni2D
 			return new Image(source);
 		}
 
+		protected virtual void Created() { }
+		protected virtual void SizeChanged(float width, float height) { }
 		protected abstract void Draw(IContext context);
 	}
 }
