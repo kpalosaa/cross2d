@@ -8,7 +8,7 @@ namespace Cross2D
 {
 	public class Context : IContext
 	{
-		private View view;
+		private NativeView view;
 
 		internal CGContext context;
 		internal CGRect rect;
