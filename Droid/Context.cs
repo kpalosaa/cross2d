@@ -80,6 +80,9 @@ namespace Cross2D
 
 		public void SetFont(IFont font)
 		{
+			if (font == null || ((Font)font).NativeTypeface == null)
+				return;
+			
 			paintFill.SetTypeface(((Font)font).NativeTypeface);
 			paintFill.TextSize = ((Font)font).NativeSize;
 		}
@@ -118,6 +121,9 @@ namespace Cross2D
 
 		public void DrawPath(IPath path, float x, float y)
 		{
+			if (path == null || ((Path)path).NativePath == null)
+				return;
+
 			canvas.Save();
 			canvas.Translate(x, y);
 			canvas.DrawPath(((Path)path).NativePath, paintStroke);
@@ -126,6 +132,9 @@ namespace Cross2D
 
 		public void FillPath(IPath path, float x, float y)
 		{
+			if (path == null || ((Path)path).NativePath == null)
+				return;
+
 			canvas.Save();
 			canvas.Translate(x, y);
 			canvas.DrawPath(((Path)path).NativePath, paintFill);

@@ -161,7 +161,7 @@ namespace Cross2D
 
 		public void DrawPath(IPath path, float x, float y)
 		{
-			if (path == null)
+			if (path == null || ((Path)path).NativePath == null)
 				return;
 			
 			context.SaveState();
@@ -173,7 +173,7 @@ namespace Cross2D
 
 		public void FillPath(IPath path, float x, float y)
 		{
-			if (path == null)
+			if (path == null || ((Path)path).NativePath == null)
 				return;
 
 			context.SaveState();
