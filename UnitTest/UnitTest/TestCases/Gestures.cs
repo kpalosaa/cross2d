@@ -13,6 +13,7 @@ namespace Cross2D.UnitTest
 			base.OnParentSet();
 
 			var tapGestureRecognizer = new TapGestureRecognizer();
+			//tapGestureRecognizer.Command = new Command(() => { OnTapped(null, EventArgs.Empty); });
 			tapGestureRecognizer.Tapped += OnTapped;
 			GestureRecognizers.Add(tapGestureRecognizer);
 		}
@@ -20,10 +21,14 @@ namespace Cross2D.UnitTest
 		private void OnTapped(object sender, EventArgs e)
 		{
 			Value += 1;
-			Invalidate();
 		}
 
-		public int Value { get; set; } = 0;
+		private int value = 0;
+		public int Value
+		{ 
+			get { return value; }
+			set { this.value = value; Invalidate(); }
+		}
 
 		protected override void OnCreated()
 		{
@@ -37,6 +42,9 @@ namespace Cross2D.UnitTest
 
 		protected override void OnDraw(IContext context)
 		{
+			context.Color = Color.Navy;
+			context.FillCircle(70, 70, 50);
+
 			context.Color = Color.Green;
 			context.StrokeWidth = 3;
 			context.DrawCircle(70, 70, 50);
