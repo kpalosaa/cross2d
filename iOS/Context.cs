@@ -93,6 +93,9 @@ namespace Cross2D
 
 		public Xamarin.Forms.Size MeasureText(string text)
 		{
+			if (font == null || font.NativeFont == null)
+				return Xamarin.Forms.Size.Zero;
+			
 			var attributedString = new NSAttributedString(text, new CTStringAttributes() { Font = font.NativeFont, ForegroundColorFromContext = true });
 			CTLine ctLine = new CTLine(attributedString);
 	
@@ -106,6 +109,9 @@ namespace Cross2D
 
 		public void DrawText(string text, float x, float y)
 		{
+			if (font == null || font.NativeFont == null)
+				return;
+
 			var attributedString = new NSAttributedString(text, new CTStringAttributes() { Font = font.NativeFont, ForegroundColorFromContext = true });
 			CTLine ctLine = new CTLine(attributedString);
 
@@ -123,6 +129,9 @@ namespace Cross2D
 
 		public void DrawText(string text, float x, float y, float width, float height, Xamarin.Forms.TextAlignment hAlignment, Xamarin.Forms.TextAlignment vAlignment)
 		{
+			if (font == null || font.NativeFont == null)
+				return;
+
 			var attributedString = new NSAttributedString(text, new CTStringAttributes() { Font = font.NativeFont, ForegroundColorFromContext = true });
 			CTLine ctLine = new CTLine(attributedString);
 
@@ -152,6 +161,9 @@ namespace Cross2D
 
 		public void DrawPath(IPath path, float x, float y)
 		{
+			if (path == null)
+				return;
+			
 			context.SaveState();
 			context.TranslateCTM(x, y);
 			context.AddPath(((Path)path).NativePath);
@@ -161,6 +173,9 @@ namespace Cross2D
 
 		public void FillPath(IPath path, float x, float y)
 		{
+			if (path == null)
+				return;
+
 			context.SaveState();
 			context.TranslateCTM(x, y);
 			context.AddPath(((Path)path).NativePath);
