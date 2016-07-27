@@ -144,7 +144,7 @@ namespace Cross2D
 
 		public void DrawImage(IImage image, float x, float y, float width, float height)
 		{
-			if (image != null)
+			if (image != null && ((Image)image).NativeBitmap != null)
 			{
 				ds.DrawImage(((Image)image).NativeBitmap, new Rect(x, y, width, height));
 			}
