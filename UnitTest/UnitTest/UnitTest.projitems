@@ -6,7 +6,7 @@
     <SharedGUID>3464b7b3-df98-4a76-8381-ca6a00575bde</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Uni2D.UnitTest</Import_RootNamespace>
+    <Import_RootNamespace>Cross2D.UnitTest</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />

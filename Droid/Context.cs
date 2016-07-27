@@ -2,17 +2,17 @@ using System;
 using Xamarin.Forms.Platform.Android;
 using Android.Graphics;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public sealed class Context : IContext
 	{
-		private View view;
+		private NativeView view;
 		internal Canvas canvas;
 
 		private Paint paintStroke;
 		private Paint paintFill;
 
-		internal Context(View view)
+		internal Context(NativeView view)
 		{
 			this.view = view;
 

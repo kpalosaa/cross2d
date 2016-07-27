@@ -1,22 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
 
-#if WINDOWS_UWP
-[assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Circles), typeof(Uni2D.UnitTest.CirclesRenderer))]
-#else
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Circles), typeof(Uni2D.UnitTest.CirclesRenderer))]
-#endif
-
-namespace Uni2D.UnitTest
+namespace Cross2D.UnitTest
 {
 	[UnitTest(Name = "Circles")]
-	public class Circles : Xamarin.Forms.View
+	public class Circles : Cross2DView
 	{
-	}
-
-	public class CirclesRenderer : Renderer<Circles>
-	{
-		protected override void Draw(IContext context)
+		protected override void OnDraw(IContext context)
 		{
 			context.Color = Color.Green;
 			context.StrokeWidth = 15;

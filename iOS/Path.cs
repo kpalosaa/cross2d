@@ -1,7 +1,7 @@
 ﻿using System;
 using CoreGraphics;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Path : IPath
 	{

@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using Microsoft.Graphics.Canvas;
 using Xamarin.Forms.Platform.UWP;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Image : IImage
 	{

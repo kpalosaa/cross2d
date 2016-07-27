@@ -1,11 +1,14 @@
 using System;
+using Android.Views;
 
-namespace Uni2D
+[assembly: Xamarin.Forms.ExportRenderer(typeof(Cross2D.Cross2DView), typeof(Cross2D.Cross2DRenderer))]
+
+namespace Cross2D
 {
-	public abstract class Renderer<TView> : Xamarin.Forms.Platform.Android.ViewRenderer<TView, View> where TView: Xamarin.Forms.View
+	public class Cross2DRenderer : Xamarin.Forms.Platform.Android.ViewRenderer<Cross2DView, View>, IRenderer
 	{
-		private Uni2D.View view;
-		private Uni2D.Context context;
+		private NativeView nativeView;
+		private Context context;
 
 		protected override void Dispose(bool disposing)
 		{
@@ -13,45 +16,39 @@ namespace Uni2D
 
 			if (disposing)
 			{
+				Element.DeletedInternal();
 				context.Dispose();
 			}
 		}
 
-		protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<TView> e)
+		protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Cross2DView> e)
 		{
 			base.OnElementChanged(e);
 
-			if (view == null)
+			if (nativeView == null)
 			{
-				view = new Uni2D.View(this.Context);
-				SetNativeControl(view);
+				nativeView = new NativeView(this.Context);
+				SetNativeControl(nativeView);
 
-				context = new Uni2D.Context(view);
-				Created();
+				context = new Context(nativeView);
 			}
 
 			if (e.OldElement != null)
 			{
-				e.OldElement.SizeChanged -= OnSizeChanged;
-				view.DrawView -= OnDrawView;
+				nativeView.DrawView -= OnDrawView;
 			}
 
 			if (e.NewElement != null)
 			{
-				e.NewElement.SizeChanged += OnSizeChanged;
-				view.DrawView += OnDrawView;
+				nativeView.DrawView += OnDrawView;
+				e.NewElement.CreatedInternal(this);
 			}
-		}
-
-		private void OnSizeChanged(object sender, EventArgs e)
-		{
-			SizeChanged((float)Control.Width, (float)Control.Height);
 		}
 
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
 			context.canvas = e.Canvas;
-			Draw(context);
+			Element.DrawInternal(context);
 		}
 
 		public new void Invalidate()
@@ -64,17 +61,15 @@ namespace Uni2D
 			return new Path();
 		}
 
-		public IFont CreateFont(string name, int size, FontStyle style = 0)
+		public IFont CreateFont(int size, string fontFamily = null, FontStyle style = 0)
 		{
-			return new Font(name, size, style);
+			if (fontFamily == null)
+				return new Font(size, style);
+			else
+				return new Font(fontFamily, size, style);
 		}
 
-		public IFont CreateFont(int size, FontStyle style = 0)
-		{
-			return new Font(size, style);
-		}
-
-		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize = Xamarin.Forms.NamedSize.Default, FontStyle style = 0)
 		{
 			return new Font(namedSize, style);
 		}
@@ -83,9 +78,5 @@ namespace Uni2D
 		{
 			return new Image(Context, source);
 		}
-
-		protected virtual void Created() { }
-		protected virtual void SizeChanged(float width, float height) { }
-		protected abstract void Draw(IContext context);
 	}
 }

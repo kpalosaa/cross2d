@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public interface IImage : IDisposable
 	{

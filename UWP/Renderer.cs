@@ -2,11 +2,13 @@
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.UI;
 
-namespace Uni2D
+[assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Cross2D.Cross2DView), typeof(Cross2D.Cross2DRenderer))]
+
+namespace Cross2D
 {
-	public abstract class Renderer<TView> : Xamarin.Forms.Platform.UWP.ViewRenderer<TView, CanvasControl> where TView : Xamarin.Forms.View
+	internal class Cross2DRenderer : Xamarin.Forms.Platform.UWP.ViewRenderer<Cross2DView, CanvasControl>, IRenderer
 	{
-		private CanvasControl view;
+		private CanvasControl nativeView;
 		private Context context;
 
 		protected override void Dispose(bool disposing)
@@ -15,32 +17,33 @@ namespace Uni2D
 
 			if (disposing)
 			{
+				Element.DeletedInternal();
 				context.Dispose();
+				nativeView.RemoveFromVisualTree();
+				nativeView = null;
 			}
 		}
 
-		protected override void OnElementChanged(Xamarin.Forms.Platform.UWP.ElementChangedEventArgs<TView> e)
+		protected override void OnElementChanged(Xamarin.Forms.Platform.UWP.ElementChangedEventArgs<Cross2DView> e)
 		{
 			base.OnElementChanged(e);
 
-			if (view == null)
+			if (nativeView == null)
 			{
-				view = new CanvasControl();
-				SetNativeControl(view);
+				nativeView = new CanvasControl();
+				SetNativeControl(nativeView);
 			}
 
 			if (e.OldElement != null)
 			{
-				e.OldElement.SizeChanged -= OnSizeChanged;
-				view.CreateResources -= OnCreateResources;
-				view.Draw -= OnDraw;
+				nativeView.CreateResources -= OnCreateResources;
+				nativeView.Draw -= OnDraw;
 			}
 
 			if (e.NewElement != null)
 			{
-				e.NewElement.SizeChanged += OnSizeChanged;
-				view.CreateResources += OnCreateResources;
-				view.Draw += OnDraw;
+				nativeView.CreateResources += OnCreateResources;
+				nativeView.Draw += OnDraw;
 			}
 		}
 
@@ -49,20 +52,15 @@ namespace Uni2D
 			if (args.Reason == CanvasCreateResourcesReason.FirstTime)
 			{
 				context = new Context(Control);
-				Created();
+				Element.CreatedInternal(this);
 			}
-		}
-
-		private void OnSizeChanged(object sender, EventArgs e)
-		{
-			SizeChanged((float)Control.Width, (float)Control.Height);
 		}
 
 		private void OnDraw(CanvasControl canvas, CanvasDrawEventArgs args)
 		{
 			context.ds = args.DrawingSession;
 
-			Draw(context);
+			Element.DrawInternal(context);
 		}
 
 		public void Invalidate()
@@ -75,17 +73,15 @@ namespace Uni2D
 			return new Path(Control);
 		}
 
-		public IFont CreateFont(string name, int size, FontStyle style = 0)
+		public IFont CreateFont(int size, string fontFamily = null, FontStyle style = 0)
 		{
-			return new Font(name, size, style);
+			if (fontFamily == null)
+				return new Font(size, style);
+			else
+				return new Font(fontFamily, size, style);
 		}
 
-		public IFont CreateFont(int size, FontStyle style = 0)
-		{
-			return new Font(size, style);
-		}
-
-		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
+		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize = Xamarin.Forms.NamedSize.Default, FontStyle style = 0)
 		{
 			return new Font(namedSize, style);
 		}
@@ -94,9 +90,5 @@ namespace Uni2D
 		{
 			return new Image(Control, source);
 		}
-
-		protected virtual void Created() { }
-		protected new virtual void SizeChanged(float width, float height) { }
-		protected abstract void Draw(IContext context);
 	}
 }

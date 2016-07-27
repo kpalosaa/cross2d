@@ -2,7 +2,7 @@
 using Xamarin.Forms.Platform.Android;
 using Android.Graphics;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public sealed class Path : IPath
 	{

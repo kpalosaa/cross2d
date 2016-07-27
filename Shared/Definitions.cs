@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public enum CapStyle
 	{

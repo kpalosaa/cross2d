@@ -3,7 +3,7 @@ using System.Numerics;
 using Microsoft.Graphics.Canvas.Geometry;
 using Microsoft.Graphics.Canvas;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Path : IPath
 	{

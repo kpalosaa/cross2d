@@ -2,9 +2,9 @@
 using CoreGraphics;
 using UIKit;
 
-namespace Uni2D
+namespace Cross2D
 {
-	public class View : UIView
+	public class NativeView : UIView
 	{
 		public event DrawViewEventHandler DrawView;
 

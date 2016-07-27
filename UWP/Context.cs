@@ -9,7 +9,7 @@ using Microsoft.Graphics.Canvas.Text;
 using Windows.Foundation;
 using Windows.UI;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Context : IContext
 	{

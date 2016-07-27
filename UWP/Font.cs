@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Graphics.Canvas.Text;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Font : IFont
 	{

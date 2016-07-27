@@ -4,7 +4,7 @@ using CoreText;
 using Foundation;
 using Xamarin.Forms.Platform.iOS;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Context : IContext
 	{
@@ -21,7 +21,7 @@ namespace Uni2D
 		private Font font;
 		private CGPoint[] lineSegment;
 
-		public Context(View view)
+		public Context(NativeView view)
 		{
 			this.view = view;
 

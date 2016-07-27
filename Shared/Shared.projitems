@@ -6,7 +6,7 @@
     <SharedGUID>b8d85931-22fa-478e-8ae6-e7841c9c5342</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Uni2D</Import_RootNamespace>
+    <Import_RootNamespace>Cross2D</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)BiDictionary.cs" />
@@ -17,5 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFont.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View.cs" />
   </ItemGroup>
 </Project>

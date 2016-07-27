@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class BiDictionary<T1, T2> : IEnumerable
 	{

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Uni2D.UnitTest
+namespace Cross2D.UnitTest
 {
 	public class App : Application
 	{

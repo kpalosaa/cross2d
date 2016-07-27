@@ -2,7 +2,7 @@
 using CoreText;
 using UIKit;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Font : IFont
 	{

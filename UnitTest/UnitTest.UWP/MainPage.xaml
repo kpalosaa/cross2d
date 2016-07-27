@@ -1,5 +1,5 @@
 ﻿<forms:WindowsPage
-    x:Class="Uni2D.UnitTest.UWP.MainPage"
+    x:Class="Cross2D.UnitTest.UWP.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:forms="using:Xamarin.Forms.Platform.UWP"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

@@ -6,7 +6,7 @@ using UIKit;
 using Xamarin.Forms;
 using Foundation;
 
-namespace Uni2D
+namespace Cross2D
 {
 	public class Image : IImage
 	{

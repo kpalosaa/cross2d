@@ -1,29 +1,30 @@
 ﻿using System;
 using Xamarin.Forms;
-using TextAlignment = Xamarin.Forms.TextAlignment;
 
-#if WINDOWS_UWP
-[assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Texts), typeof(Uni2D.UnitTest.TextRenderer))]
-#else
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Texts), typeof(Uni2D.UnitTest.TextRenderer))]
-#endif
-
-namespace Uni2D.UnitTest
+namespace Cross2D.UnitTest
 {
 	[UnitTest(Name = "Texts")]
-	public class Texts : Xamarin.Forms.View
+	public class Texts : Cross2DView
 	{
-	}
+		IFont fontSmall, fontLarge;
 
-	public class TextRenderer : Renderer<Texts>
-	{
-		protected override void Draw(IContext context)
+		protected override void OnCreated()
+		{
+			fontSmall = CreateFont(20);
+			fontLarge = CreateFont(40);
+		}
+
+		protected override void OnDeleted()
+		{
+			fontSmall.Dispose();
+			fontLarge.Dispose();
+		}
+
+		protected override void OnDraw(IContext context)
 		{
 			Size size;
-			IFont font;
 
-			font = CreateFont(20);
-			context.SetFont(font);
+			context.SetFont(fontSmall);
 
 			size = context.MeasureText("MMggyyMM");
 			context.Color = Color.Gray;
@@ -45,9 +46,8 @@ namespace Uni2D.UnitTest
 			context.FillRect(10, 140, 150, 40);
 			context.Color = Color.Green;
 			context.DrawText("MMggyyMM", 10, 140, 150, 40, Xamarin.Forms.TextAlignment.End, Xamarin.Forms.TextAlignment.End);
-		
-			font = CreateFont(40);
-			context.SetFont(font);
+
+			context.SetFont(fontLarge);
 
 			size = context.MeasureText("MMggyyMM");
 			context.Color = Color.Gray;
@@ -62,4 +62,3 @@ namespace Uni2D.UnitTest
 		}
 	}
 }
-

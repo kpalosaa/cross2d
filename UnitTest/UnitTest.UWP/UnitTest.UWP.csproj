@@ -7,8 +7,8 @@
     <ProjectGuid>{74058B3E-938C-49AA-A64E-05FC8ECC5D0C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uni2D</RootNamespace>
-    <AssemblyName>Uni2D.UnitTest.UWP</AssemblyName>
+    <RootNamespace>Cross2D</RootNamespace>
+    <AssemblyName>Cross2D.UnitTest</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>

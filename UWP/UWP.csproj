@@ -7,8 +7,8 @@
     <ProjectGuid>{E844B5C6-1ED8-47FB-AE07-E5A7B5FBEB30}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Uni2D</RootNamespace>
-    <AssemblyName>Uni2D.UWP</AssemblyName>
+    <RootNamespace>Cross2D</RootNamespace>
+    <AssemblyName>Cross2D.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

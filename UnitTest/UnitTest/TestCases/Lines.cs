@@ -1,22 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
 
-#if WINDOWS_UWP
-[assembly: Xamarin.Forms.Platform.UWP.ExportRenderer(typeof(Uni2D.UnitTest.Lines), typeof(Uni2D.UnitTest.LinesRenderer))]
-#else
-[assembly: Xamarin.Forms.ExportRenderer(typeof(Uni2D.UnitTest.Lines), typeof(Uni2D.UnitTest.LinesRenderer))]
-#endif
-
-namespace Uni2D.UnitTest
+namespace Cross2D.UnitTest
 {
 	[UnitTest(Name="Lines")]
-	public class Lines : Xamarin.Forms.View
+	public class Lines : Cross2DView
 	{
-	}
-
-	public class LinesRenderer : Renderer<Lines>
-	{
-		protected override void Draw(IContext context)
+		protected override void OnDraw(IContext context)
 		{
 			context.Color = Color.Green;
 			context.StrokeWidth = 15;

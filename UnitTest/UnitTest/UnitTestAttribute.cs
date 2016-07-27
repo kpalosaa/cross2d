@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Uni2D.UnitTest
+namespace Cross2D.UnitTest
 {
 	public class UnitTestAttribute : Attribute
 	{

@@ -1,13 +1,13 @@
 using System;
 using Android.Graphics;
 
-namespace Uni2D
+namespace Cross2D
 {
-	public class View : Android.Views.View
+	public class NativeView : Android.Views.View
 	{
 		public event DrawViewEventHandler DrawView;
 
-		public View(Android.Content.Context context)
+		public NativeView(Android.Content.Context context)
 			: base(context)
 		{
 		}
