@@ -18,7 +18,6 @@ namespace Cross2D
 
 			if (disposing)
 			{
-				Element.DeletedInternal();
 				context.Dispose();
 			}
 		}
@@ -38,6 +37,7 @@ namespace Cross2D
 			if (e.OldElement != null)
 			{
 				nativeView.DrawView -= OnDrawView;
+				e.OldElement.DeletedInternal();
 			}
 
 			if (e.NewElement != null)

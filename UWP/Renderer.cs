@@ -17,7 +17,6 @@ namespace Cross2D
 
 			if (disposing)
 			{
-				Element.DeletedInternal();
 				context.Dispose();
 				nativeView.RemoveFromVisualTree();
 				nativeView = null;
@@ -38,6 +37,7 @@ namespace Cross2D
 			{
 				nativeView.CreateResources -= OnCreateResources;
 				nativeView.Draw -= OnDraw;
+				e.OldElement.DeletedInternal();
 			}
 
 			if (e.NewElement != null)
