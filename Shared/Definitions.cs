@@ -22,4 +22,10 @@ namespace Cross2D
 		Bold = 1 << 0,
 		Italic = 1 << 1
 	}
+
+	public enum DrawingUnit
+	{
+		Pixel,
+		Dip
+	}
 }

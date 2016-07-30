@@ -26,39 +26,42 @@ namespace Cross2D.UnitTest
 
 			context.SetFont(fontSmall);
 
+			float y = 20;
+
 			size = context.MeasureText("MMggyyMM");
 			context.Color = Color.Gray;
-			context.FillRect(10, 10, (float)size.Width, (float)size.Height);
+			context.FillRect(20, y, (float)size.Width, (float)size.Height);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 10);
-
+			context.DrawText("MMggyyMM", 20, y);
+			y += (float)size.Height + 10;
 			context.Color = Color.Gray;
-			context.FillRect(10, 50, 150, 30);
+			context.FillRect(20, y, 350, 60);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 50, 150, 30, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
-
+			context.DrawText("MMggyyMM", 20, y, 350, 60, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
+			y += 60 + 10;
 			context.Color = Color.Gray;
-			context.FillRect(10, 90, 150, 40);
+			context.FillRect(20, y, 350, 60);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 90, 150, 40, Xamarin.Forms.TextAlignment.Start, Xamarin.Forms.TextAlignment.Start);
-
+			context.DrawText("MMggyyMM", 20, y, 350, 60, Xamarin.Forms.TextAlignment.Start, Xamarin.Forms.TextAlignment.Start);
+			y += 60 + 10;
 			context.Color = Color.Gray;
-			context.FillRect(10, 140, 150, 40);
+			context.FillRect(20, y, 350, 60);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 140, 150, 40, Xamarin.Forms.TextAlignment.End, Xamarin.Forms.TextAlignment.End);
+			context.DrawText("MMggyyMM", 20, y, 350, 60, Xamarin.Forms.TextAlignment.End, Xamarin.Forms.TextAlignment.End);
 
 			context.SetFont(fontLarge);
 
+			y += 60 + 10;
 			size = context.MeasureText("MMggyyMM");
 			context.Color = Color.Gray;
-			context.FillRect(10, 190, (float)size.Width, (float)size.Height);
+			context.FillRect(20, y, (float)size.Width, (float)size.Height);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 190);
-
+			context.DrawText("MMggyyMM", 20, y);
+			y += (float)size.Height + 10;
 			context.Color = Color.Gray;
-			context.FillRect(10, 250, 250, 60);
+			context.FillRect(20, y, 450, 90);
 			context.Color = Color.Green;
-			context.DrawText("MMggyyMM", 10, 250, 250, 60, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
+			context.DrawText("MMggyyMM", 20, y, 450, 90, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
 		}
 	}
 }

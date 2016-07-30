@@ -9,6 +9,7 @@ namespace Cross2D
 	{
 		private NativeView nativeView;
 		private Context context;
+		private float density;
 
 		protected override void Dispose(bool disposing)
 		{
@@ -24,12 +25,14 @@ namespace Cross2D
 		{
 			base.OnElementChanged(e);
 
+			density = Resources.DisplayMetrics.Density;
+
 			if (nativeView == null)
 			{
 				nativeView = new NativeView(this.Context);
 				SetNativeControl(nativeView);
 
-				context = new Context(nativeView);
+				context = new Context(nativeView, density);
 			}
 
 			if (e.OldElement != null)
@@ -48,6 +51,8 @@ namespace Cross2D
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
 			context.canvas = e.Canvas;
+			context.Width = e.Rect.Width();
+			context.Height = e.Rect.Height();
 			Element.DrawInternal(context);
 		}
 
@@ -64,14 +69,14 @@ namespace Cross2D
 		public IFont CreateFont(int size, string fontFamily = null, FontStyle style = 0)
 		{
 			if (fontFamily == null)
-				return new Font(size, style);
+				return new Font(size * density, style);
 			else
-				return new Font(fontFamily, size, style);
+				return new Font(fontFamily, size * density, style);
 		}
 
 		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize = Xamarin.Forms.NamedSize.Default, FontStyle style = 0)
 		{
-			return new Font(namedSize, style);
+			return new Font((float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label)) * density, style);
 		}
 
 		public IImage CreateImage(Xamarin.Forms.ImageSource source)

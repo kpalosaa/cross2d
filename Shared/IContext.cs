@@ -28,7 +28,8 @@ namespace Cross2D
 		void DrawPath(IPath path, float x, float y);
 		void FillPath(IPath path, float x, float y);
 
-		void DrawImage(IImage image, float x, float y, float width, float height);
+		void DrawImage(IImage image, float x, float y, DrawingUnit unit = DrawingUnit.Dip);
+		void DrawImage(IImage image, float x, float y, float width, float height, Aspect aspect);
 
 		void Save();
 		void Restore();
@@ -36,6 +37,11 @@ namespace Cross2D
 		void Translate(float sx, float sy);
 		void Scale(float dx, float dy);
 		void Rotate(float angle);
+
+		float DipToPixel(float dip);
+		float PixelToDip(float pixel);
+		Size DipToPixel(Size dip);
+		Size PixelToDip(Size pixel);
 
 		Color Color { get; set; }
 

@@ -31,7 +31,7 @@ namespace Cross2D
 				nativeView = new NativeView();
 				SetNativeControl(nativeView);
 
-				context = new Context(nativeView);
+				context = new Context(nativeView, 1.0f /*(float)UIScreen.MainScreen.Scale*/);
 			}
 
 			if (e.OldElement != null)

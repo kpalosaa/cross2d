@@ -110,7 +110,7 @@ namespace Cross2D
 						{
 							using (var stream = streamsource.Stream.Invoke(default(CancellationToken)).Result)
 							{
-								uiImage = UIImage.LoadFromData(NSData.FromStream(stream), (float)UIScreen.MainScreen.Scale);
+								uiImage = UIImage.LoadFromData(NSData.FromStream(stream), 1.0f);
 							}
 						}
 					}

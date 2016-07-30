@@ -9,6 +9,8 @@ namespace Cross2D
 	public class Context : IContext
 	{
 		private NativeView view;
+		private float scale;
+		private float scaleInv;
 
 		internal CGContext context;
 		internal CGRect rect;
@@ -21,9 +23,11 @@ namespace Cross2D
 		private Font font;
 		private CGPoint[] lineSegment;
 
-		public Context(NativeView view)
+		public Context(NativeView view, float scale)
 		{
 			this.view = view;
+			this.scale = scale;
+			this.scaleInv = 1 / scale;
 
 			lineSegment = new CGPoint[] { new CGPoint(), new CGPoint() };
 		}
@@ -183,13 +187,52 @@ namespace Cross2D
 			context.RestoreState();
 		}
 
-		public void DrawImage(IImage image, float x, float y, float width, float height)
+		public void DrawImage(IImage image, float x, float y, DrawingUnit unit = DrawingUnit.Dip)
+		{
+			float width = image.Width;
+			float height = image.Height;
+
+			if (unit == DrawingUnit.Dip)
+			{
+				width *= scale;
+				height *= scale;
+			}
+
+			DrawImage(image, x, y, width, height, Xamarin.Forms.Aspect.Fill);
+		}
+
+		public void DrawImage(IImage image, float x, float y, float width, float height, Xamarin.Forms.Aspect aspect)
 		{
 			if (image != null)
 			{
 				CGImage cgImage = ((Image)image).NativeImage;
 				if (cgImage != null)
-					context.DrawImage(new CGRect(x, y, width, height), cgImage);
+				{
+					if (aspect == Xamarin.Forms.Aspect.Fill)
+					{
+						context.DrawImage(new CGRect(x, y, width, height), cgImage);
+					}
+					else
+					{
+						Xamarin.Forms.Size bounding = new Xamarin.Forms.Size(width, height);
+
+						if (aspect == Xamarin.Forms.Aspect.AspectFill)
+						{
+							Xamarin.Forms.Rectangle imageBox = MathHelper.Fill(new Xamarin.Forms.Rectangle(Xamarin.Forms.Point.Zero, image.Size), bounding);
+
+							using (CGImage newImage = cgImage.WithImageInRect(new CGRect(imageBox.X, imageBox.Y, imageBox.Width, imageBox.Height)))
+								context.DrawImage(new CGRect(x, y, width, height), newImage);
+						}
+						else
+						{
+							Xamarin.Forms.Rectangle boundingBox = MathHelper.Fit(image.Size, new Xamarin.Forms.Rectangle(x, y, width, height));
+
+							context.DrawImage(new CGRect(boundingBox.X, boundingBox.Y, boundingBox.Width, boundingBox.Height), cgImage);
+						}
+					}
+
+				}
+				context.DrawImage(new CGRect(x, y, width, height), cgImage);
 			}
 		}
 
@@ -216,6 +259,26 @@ namespace Cross2D
 		public void Rotate(float angle)
 		{
 			context.RotateCTM(angle);
+		}
+
+		public float DipToPixel(float dip)
+		{
+			return dip * scaleInv;
+		}
+
+		public float PixelToDip(float pixel)
+		{
+			return pixel * scale;
+		}
+
+		public Xamarin.Forms.Size DipToPixel(Xamarin.Forms.Size dip)
+		{
+			return new Xamarin.Forms.Size(dip.Width * scaleInv, dip.Height * scaleInv);
+		}
+
+		public Xamarin.Forms.Size PixelToDip(Xamarin.Forms.Size pixel)
+		{
+			return new Xamarin.Forms.Size(pixel.Width * scale, pixel.Height * scale);
 		}
 
 		public Xamarin.Forms.Color Color

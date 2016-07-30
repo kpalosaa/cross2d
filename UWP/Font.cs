@@ -25,7 +25,7 @@ namespace Cross2D
 			}
 		}
 
-		public Font(string name, int size, FontStyle style = 0)
+		public Font(string name, float size, FontStyle style = 0)
 		{
 			SetFontStyle(style);
 
@@ -33,18 +33,11 @@ namespace Cross2D
 			textFormat.FontSize = size;
 		}
 
-		public Font(int size, FontStyle style = 0)
+		public Font(float size, FontStyle style = 0)
 		{
 			SetFontStyle(style);
 
 			textFormat.FontSize = size;
-		}
-
-		public Font(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
-		{
-			SetFontStyle(style);
-
-			textFormat.FontSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
 		}
 
 		private void SetFontStyle(FontStyle style)

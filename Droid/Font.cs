@@ -27,22 +27,16 @@ namespace Cross2D
 			}
 		}
 
-		public Font(string name, int size, FontStyle style = 0)
+		public Font(string name, float size, FontStyle style = 0)
 		{
 			nativeTypeface = Typeface.Create(name, GetFontStyle(style));
 			nativeSize = size;
 		}
 
-		public Font(int size, FontStyle style = 0)
+		public Font(float size, FontStyle style = 0)
 		{
 			nativeTypeface = Typeface.DefaultFromStyle(GetFontStyle(style));
 			nativeSize = size;
-		}
-
-		public Font(Xamarin.Forms.NamedSize namedSize, FontStyle style = 0)
-		{
-			nativeTypeface = Typeface.DefaultFromStyle(GetFontStyle(style));
-			nativeSize = (float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label));
 		}
 
 		private TypefaceStyle GetFontStyle(FontStyle style)

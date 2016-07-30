@@ -21,4 +21,7 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)testimage.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)testimagesmall.jpg" />
+  </ItemGroup>
 </Project>

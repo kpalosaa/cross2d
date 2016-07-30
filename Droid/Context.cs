@@ -7,14 +7,19 @@ namespace Cross2D
 	public sealed class Context : IContext
 	{
 		private NativeView view;
+		private float density;
+		private float densityInv;
+
 		internal Canvas canvas;
 
 		private Paint paintStroke;
 		private Paint paintFill;
 
-		internal Context(NativeView view)
+		internal Context(NativeView view, float density)
 		{
 			this.view = view;
+			this.density = density;
+			this.densityInv = 1 / density;
 
 			paintStroke = new Paint();
 			paintStroke.SetStyle(Paint.Style.Stroke);
@@ -141,15 +146,50 @@ namespace Cross2D
 			canvas.Restore();
 		}
 
-		public void DrawImage(IImage image, float x, float y, float width, float height)
+		public void DrawImage(IImage image, float x, float y, DrawingUnit unit = DrawingUnit.Dip)
+		{
+			float width = image.Width;
+			float height = image.Height;
+
+			if (unit == DrawingUnit.Dip)
+			{
+				width *= density;
+				height *= density;
+			}
+
+			DrawImage(image, x, y, width, height, Xamarin.Forms.Aspect.Fill);
+		}
+
+		public void DrawImage(IImage image, float x, float y, float width, float height, Xamarin.Forms.Aspect aspect)
 		{
 			if (image != null)
 			{
 				Bitmap bitmap = ((Image)image).NativeImage;
 				if (bitmap != null)
 				{
-					using (RectF rect = new RectF(x, y, x + width - 1, y + height - 1))
-						canvas.DrawBitmap(bitmap, null, rect, null);
+					if (aspect == Xamarin.Forms.Aspect.Fill)
+					{
+						using (RectF rect = new RectF(x, y, x + width - 1, y + height - 1))
+							canvas.DrawBitmap(bitmap, null, rect, null);
+					}
+					else
+					{
+						Xamarin.Forms.Size bounding = new Xamarin.Forms.Size(width, height);
+
+						if (aspect == Xamarin.Forms.Aspect.AspectFill)
+						{
+							Xamarin.Forms.Rectangle imageBox = MathHelper.Fill(new Xamarin.Forms.Rectangle(Xamarin.Forms.Point.Zero, image.Size), bounding);
+							using (RectF rectB = new RectF(x, y, x + width - 1, y + height - 1))
+							using (Rect rectI = new Rect((int)imageBox.X, (int)imageBox.Y, (int)imageBox.X + (int)imageBox.Width - 1, (int)imageBox.Y + (int)imageBox.Height - 1))
+								canvas.DrawBitmap(bitmap, rectI, rectB, null);
+						}
+						else
+						{
+							Xamarin.Forms.Rectangle boundingBox = MathHelper.Fit(image.Size, new Xamarin.Forms.Rectangle(x, y, width, height));
+							using (RectF rect = new RectF((float)boundingBox.X, (float)boundingBox.Y, (float)boundingBox.X + (float)boundingBox.Width - 1, (float)boundingBox.Y + (float)boundingBox.Height - 1))
+								canvas.DrawBitmap(bitmap, null, rect, null);
+						}
+					}
 				}
 			}
 		}
@@ -179,6 +219,26 @@ namespace Cross2D
 			canvas.Rotate(angle * MathHelper.RadToDeg);
 		}
 
+		public float DipToPixel(float dip)
+		{
+			return dip * densityInv;
+		}
+
+		public float PixelToDip(float pixel)
+		{
+			return pixel * density;
+		}
+
+		public Xamarin.Forms.Size DipToPixel(Xamarin.Forms.Size dip)
+		{
+			return new Xamarin.Forms.Size(dip.Width * densityInv, dip.Height * densityInv);
+		}
+
+		public Xamarin.Forms.Size PixelToDip(Xamarin.Forms.Size pixel)
+		{
+			return new Xamarin.Forms.Size(pixel.Width * density, pixel.Height * density);
+		}
+
 		public Xamarin.Forms.Color Color
 		{
 			get { return Xamarin.Forms.Color.FromUint((uint)paintStroke.Color.ToArgb()); }
@@ -203,8 +263,8 @@ namespace Cross2D
 			set { paintStroke.StrokeJoin = joinStyles[value]; }
 		}
 
-		public float Width { get { return canvas.Width; } }
-		public float Height { get { return canvas.Height; } }
+		public float Width { get; internal set; }
+		public float Height { get; internal set; }
 
 		private static readonly BiDictionary<CapStyle, Paint.Cap> capStyles = new BiDictionary<CapStyle, Paint.Cap>()
 		{

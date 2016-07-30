@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.UI;
 
@@ -10,6 +11,7 @@ namespace Cross2D
 	{
 		private CanvasControl nativeView;
 		private Context context;
+		private float scale;
 
 		protected override void Dispose(bool disposing)
 		{
@@ -51,7 +53,8 @@ namespace Cross2D
 		{
 			if (args.Reason == CanvasCreateResourcesReason.FirstTime)
 			{
-				context = new Context(Control);
+				scale = nativeView.Dpi / 96.0f;
+				context = new Context(Control, scale);
 				Element.CreatedInternal(this);
 			}
 		}
@@ -59,6 +62,7 @@ namespace Cross2D
 		private void OnDraw(CanvasControl canvas, CanvasDrawEventArgs args)
 		{
 			context.ds = args.DrawingSession;
+			context.ds.Units = CanvasUnits.Pixels;
 
 			Element.DrawInternal(context);
 		}
@@ -76,14 +80,14 @@ namespace Cross2D
 		public IFont CreateFont(int size, string fontFamily = null, FontStyle style = 0)
 		{
 			if (fontFamily == null)
-				return new Font(size, style);
+				return new Font(size * scale, style);
 			else
 				return new Font(fontFamily, size, style);
 		}
 
 		public IFont CreateFont(Xamarin.Forms.NamedSize namedSize = Xamarin.Forms.NamedSize.Default, FontStyle style = 0)
 		{
-			return new Font(namedSize, style);
+			return new Font((float)Xamarin.Forms.Device.GetNamedSize(namedSize, typeof(Xamarin.Forms.Label)) * scale, style);
 		}
 
 		public IImage CreateImage(Xamarin.Forms.ImageSource source)
