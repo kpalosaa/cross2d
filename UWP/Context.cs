@@ -278,8 +278,8 @@ namespace Cross2D
 			}
 		}
 
-		public float Width { get { return (float)canvas.Size.Width; } }
-		public float Height { get { return (float)canvas.Size.Height; } }
+		public float Width { get { return (float)canvas.Size.Width * scale; } }
+		public float Height { get { return (float)canvas.Size.Height * scale; } }
 
 		private static readonly BiDictionary<CapStyle, CanvasCapStyle> capStyles = new BiDictionary<CapStyle, CanvasCapStyle>()
 		{
