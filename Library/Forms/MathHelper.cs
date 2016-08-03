@@ -3,16 +3,36 @@ using Xamarin.Forms;
 
 namespace Cross2D
 {
+	/// <summary>
+	/// Helper functions.
+	/// </summary>
 	public static class MathHelper
 	{
+		/// <summary>
+		/// Multiply by this to convert degrees to radians.
+		/// </summary>
 		public const float DegToRad = (float)Math.PI / 180.0f;
+
+		/// <summary>
+		/// Multiply by this to convert radians to degrees.
+		/// </summary>
 		public const float RadToDeg = 180.0f / (float)Math.PI;
 
+		/// <summary>
+		/// Convert degrees to radians
+		/// </summary>
+		/// <param name="degrees">Value in degrees.</param>
+		/// <returns>Value in radians</returns>
 		public static float ConvertDegToRad(float degrees)
 		{
 			return degrees * DegToRad;
 		}
 
+		/// <summary>
+		/// Convert radians to degrees.
+		/// </summary>
+		/// <param name="radians">Value in radians.</param>
+		/// <returns>Value in degrees</returns>
 		public static float ConvertRadToDeg(float radians)
 		{
 			return radians * RadToDeg;

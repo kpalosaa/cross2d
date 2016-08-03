@@ -2,7 +2,7 @@
 
 namespace Cross2D
 {
-	public interface IRenderer
+	internal interface IRenderer
 	{
 		void Invalidate();
 		IPath CreatePath();

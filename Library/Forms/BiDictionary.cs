@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Cross2D
 {
-	public class BiDictionary<T1, T2> : IEnumerable
+	internal class BiDictionary<T1, T2> : IEnumerable
 	{
 		private Dictionary<T1, T2> d1 = new Dictionary<T1, T2>();
 		private Dictionary<T2, T1> d2 = new Dictionary<T2, T1>();

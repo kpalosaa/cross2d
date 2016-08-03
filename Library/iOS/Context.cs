@@ -192,10 +192,10 @@ namespace Cross2D
 			float width = image.Width;
 			float height = image.Height;
 
-			if (unit == DrawingUnit.Dip)
+			if (unit == DrawingUnit.Pixel)
 			{
-				width *= scale;
-				height *= scale;
+				width *= scaleInv;
+				height *= scaleInv;
 			}
 
 			DrawImage(image, x, y, width, height, Xamarin.Forms.Aspect.Fill);
