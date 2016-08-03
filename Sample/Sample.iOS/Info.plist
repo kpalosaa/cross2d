@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>formtest</string>
+	<string>Cross2D.Sample</string>
 	<key>CFBundleName</key>
 	<string>formtest</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.formtest.formtest</string>
+	<string>com.cross2d.sample</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

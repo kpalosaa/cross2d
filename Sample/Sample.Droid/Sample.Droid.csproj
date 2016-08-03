@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cross2D</RootNamespace>
-    <AssemblyName>Cross2D.UnitTest</AssemblyName>
+    <AssemblyName>Cross2D.Sample</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -119,7 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
-    <AndroidResource Include="..\UnitTest\testimage.jpg">
+    <AndroidResource Include="..\Sample.Shared\TestImage.jpg">
       <Link>Resources\Drawable\testimage.jpg</Link>
     </AndroidResource>
   </ItemGroup>
@@ -127,12 +127,16 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Droid\Droid.csproj">
+    <ProjectReference Include="..\..\Library\Droid\Droid.csproj">
       <Project>{a3380067-9a6b-4f6e-a2a6-89ea19eb6f46}</Project>
       <Name>Droid</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Library\Forms\Forms.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Forms</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="..\UnitTest\UnitTest.projitems" Label="Shared" Condition="Exists('..\UnitTest\UnitTest.projitems')" />
+  <Import Project="..\Sample.Shared\Sample.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

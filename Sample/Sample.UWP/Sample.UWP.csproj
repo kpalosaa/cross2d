@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cross2D</RootNamespace>
-    <AssemblyName>Cross2D.UnitTest</AssemblyName>
+    <AssemblyName>Cross2D.Sample</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -128,7 +128,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\UWP\UWP.csproj">
+    <ProjectReference Include="..\..\Library\Forms\Forms.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Library\UWP\UWP.csproj">
       <Project>{e844b5c6-1ed8-47fb-ae07-e5a7b5fbeb30}</Project>
       <Name>UWP</Name>
     </ProjectReference>
@@ -136,7 +140,8 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\UnitTest\UnitTest.projitems" Label="Shared" Condition="Exists('..\UnitTest\UnitTest.projitems')" />
+  <Import Project="..\Sample\Sample.projitems" Label="Shared" Condition="Exists('..\Sample\Sample.projitems')" />
+  <Import Project="..\Sample.Shared\Sample.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
