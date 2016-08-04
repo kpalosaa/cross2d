@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
-	public class UnitTestAttribute : Attribute
+	public class SampleAttribute : Attribute
 	{
 		public string Name { get; set; }
 	}

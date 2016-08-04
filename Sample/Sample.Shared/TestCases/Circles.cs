@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
-	[UnitTest(Name = "Circles")]
+	[Sample(Name = "Circles")]
 	public class Circles : Cross2DView
 	{
 		protected override void OnDraw(IContext context)

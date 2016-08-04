@@ -1,10 +1,26 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
-	[UnitTest(Name = "Gestures")]
-	public class Gestures : Cross2DView
+	[Sample(Name = "Gestures")]
+	public class Gestures : StackLayout
+	{
+		public Gestures()
+		{
+			GestureButton button = new GestureButton
+			{
+				HorizontalOptions = LayoutOptions.Center,
+				VerticalOptions = LayoutOptions.CenterAndExpand,
+				WidthRequest = 150,
+				HeightRequest = 150
+			};
+
+			Children.Add(button);
+		}
+	}
+
+	public class GestureButton : Cross2DView
 	{
 		IFont font;
 
@@ -43,14 +59,14 @@ namespace Cross2D.UnitTest
 		protected override void OnDraw(IContext context)
 		{
 			context.Color = Color.Navy;
-			context.FillCircle(70, 70, 50);
+			context.FillCircle(context.Width / 2, context.Height / 2, Math.Min(context.Width, context.Height) / 2);
 
 			context.Color = Color.Green;
 			context.StrokeWidth = 3;
-			context.DrawCircle(70, 70, 50);
+			context.DrawCircle(context.Width / 2, context.Height / 2, Math.Min(context.Width, context.Height) / 2);
 
 			context.SetFont(font);
-			context.DrawText(Value.ToString(), 20, 20, 100, 100, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
+			context.DrawText(Value.ToString(), 0, 0, context.Width, context.Height, Xamarin.Forms.TextAlignment.Center, Xamarin.Forms.TextAlignment.Center);
 		}
 	}
 }

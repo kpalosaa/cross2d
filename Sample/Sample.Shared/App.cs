@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
 	public class App : Application
 	{
@@ -38,15 +38,15 @@ namespace Cross2D.UnitTest
 				}
 			};
 
-			List<Type> tests = typeof(App).GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().IsDefined(typeof(UnitTestAttribute), false)).ToList();
+			List<Type> tests = typeof(App).GetTypeInfo().Assembly.GetTypes().Where(t => t.GetTypeInfo().IsDefined(typeof(SampleAttribute), false)).ToList();
 			tests.Sort((t1, t2) =>
 			{
-				UnitTestAttribute[] a1s = t1.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
-				UnitTestAttribute[] a2s = t2.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
+				SampleAttribute[] a1s = t1.GetTypeInfo().GetCustomAttributes(typeof(SampleAttribute), false) as SampleAttribute[];
+				SampleAttribute[] a2s = t2.GetTypeInfo().GetCustomAttributes(typeof(SampleAttribute), false) as SampleAttribute[];
 				if (a1s.Length > 0 && a2s.Length > 0)
 				{
-					UnitTestAttribute a1 = a1s[0] as UnitTestAttribute;
-					UnitTestAttribute a2 = a2s[0] as UnitTestAttribute;
+					SampleAttribute a1 = a1s[0] as SampleAttribute;
+					SampleAttribute a2 = a2s[0] as SampleAttribute;
 					return String.Compare(a1.Name != null ? a1.Name : t1.Name, a2.Name != null ? a2.Name : t2.Name, StringComparison.OrdinalIgnoreCase);
 				}
 
@@ -57,10 +57,10 @@ namespace Cross2D.UnitTest
 
 			foreach (Type type in tests)
 			{
-				UnitTestAttribute[] attribs = type.GetTypeInfo().GetCustomAttributes(typeof(UnitTestAttribute), false) as UnitTestAttribute[];
+				SampleAttribute[] attribs = type.GetTypeInfo().GetCustomAttributes(typeof(SampleAttribute), false) as SampleAttribute[];
 				if (attribs.Length > 0)
 				{
-					UnitTestAttribute attrib = attribs[0] as UnitTestAttribute;
+					SampleAttribute attrib = attribs[0] as SampleAttribute;
 					if (attrib != null)
 					{
 						Xamarin.Forms.View test = Activator.CreateInstance(type) as Xamarin.Forms.View;

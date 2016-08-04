@@ -45,7 +45,7 @@ namespace Cross2D
 
 		public void AddArc(float xCenter, float yCenter, float radius, float startAngle, float endAngle)
 		{
-			path.AddArc(xCenter - radius, yCenter - radius, xCenter + radius, yCenter + radius, startAngle, endAngle - startAngle);
+			path.AddArc(xCenter - radius, yCenter - radius, xCenter + radius, yCenter + radius, MathHelper.ConvertRadToDeg(startAngle), MathHelper.ConvertRadToDeg(endAngle - startAngle));
 		}
 
 		public void AddRect(float x, float y, float width, float height)

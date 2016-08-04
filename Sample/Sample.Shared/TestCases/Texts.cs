@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
-	[UnitTest(Name = "Texts")]
+	[Sample(Name = "Texts")]
 	public class Texts : Cross2DView
 	{
 		IFont fontSmall, fontLarge;

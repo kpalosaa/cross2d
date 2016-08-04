@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="Cross2D.UnitTest.UWP.App"
+    x:Class="Cross2D.Sample.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Cross2D.UnitTest.UWP"
+    xmlns:local="using:Cross2D.Sample.UWP"
     RequestedTheme="Light">
 
 </Application>

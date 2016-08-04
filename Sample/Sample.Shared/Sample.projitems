@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestCases\Buttons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestCases\Circles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestCases\Lines.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestCases\Paths.cs" />

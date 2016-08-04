@@ -2,9 +2,9 @@
 using Xamarin.Forms;
 using System.Reflection;
 
-namespace Cross2D.UnitTest
+namespace Cross2D.Sample
 {
-	[UnitTest(Name = "Images")]
+	[Sample(Name = "Images")]
 	public class Images : Cross2DView
 	{
 		IImage image;

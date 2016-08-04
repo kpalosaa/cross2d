@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Cross2D.UnitTest.UWP
+namespace Cross2D.Sample.UWP
 {
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.

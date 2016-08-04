@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Cross2D.UnitTest.UWP
+namespace Cross2D.Sample.UWP
 {
 	public sealed partial class MainPage
 	{
@@ -21,7 +21,7 @@ namespace Cross2D.UnitTest.UWP
 		{
 			this.InitializeComponent();
 
-			LoadApplication(new UnitTest.App());
+			LoadApplication(new Sample.App());
 		}
 	}
 }
