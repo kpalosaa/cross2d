@@ -16,10 +16,7 @@ namespace Cross2D
 		{
 			base.OnDraw(canvas);
 
-			var r = new Rect();
-			this.GetLocalVisibleRect(r);
-
-			DrawView?.Invoke(this, new DrawViewEventArgs() { Canvas = canvas, Rect = r });
+			DrawView?.Invoke(this, new DrawViewEventArgs() { Canvas = canvas });
 		}
 	}
 

@@ -51,8 +51,8 @@ namespace Cross2D
 		private void OnDrawView(object sender, DrawViewEventArgs e)
 		{
 			context.canvas = e.Canvas;
-			context.Width = e.Rect.Width();
-			context.Height = e.Rect.Height();
+			context.Width = nativeView.Width;
+			context.Height = nativeView.Height;
 			Element.DrawInternal(context);
 		}
 
