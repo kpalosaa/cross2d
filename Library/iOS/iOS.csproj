@@ -68,6 +68,7 @@
     <Compile Include="Path.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="Cross2D.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Forms\Forms.csproj">

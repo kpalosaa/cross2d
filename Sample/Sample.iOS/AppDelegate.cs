@@ -12,6 +12,8 @@ namespace Cross2D.Sample.iOS
 	{
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
+			global::Cross2D.Cross2D.Init();
+
 			global::Xamarin.Forms.Forms.Init();
 
 			LoadApplication(new App());
