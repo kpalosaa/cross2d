@@ -135,11 +135,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="..\UnitTest\testimage.jpg">
-      <Link>Resources\testimage.jpg</Link>
-    </BundleResource>
+    <Folder Include="Resources\" />
   </ItemGroup>
-  <Import Project="..\UnitTest\UnitTest.projitems" Label="Shared" Condition="Exists('..\UnitTest\UnitTest.projitems')" />
   <Import Project="..\Sample.Shared\Sample.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.0.107\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
